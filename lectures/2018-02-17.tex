@@ -1,0 +1,315 @@
+\dateline{17 февраля 2018 г.}
+
+\section*{Введение. Организационные моменты}
+
+\textbf{\color{blue}$\rightarrow$ Лектор --- Степанов Евгений Олегович. $\leftarrow$}
+
+\begin{quote}
+  Вроде как считается, что на матмехе чуть больше уровень математической подготовки, и в этом должен быть ваш плюс.
+\end{quote}
+
+Курс скорее должен называться <<Уравнения в частных производных>> --- текущее название по большей части обусловлено историческими причинами.
+
+\subsection*{Устройство курса}
+
+Обычный экзамен. Коллоквиума не будет; на 5 нужно сдать еще и задачу. Две (<<реально легкие>>) теоретические к/р, гарантирующие автомат (3 или 4) при нужном количестве баллов. Чтобы сдать на 5, нужно сдавать экзамен.
+
+\subsection*{Необходимые знания}
+
+\begin{itemize}
+  \item Анализ вещественной переменной;
+  \item Основные определения топологии;
+  \item Мера Лебега и интеграл Лебега. Базовые определения:
+    \begin{itemize}
+      \item $\Omega \in \mathbb{R}^n$ --- область ($\equiv$ открытое множество),
+      \item $L^1(\Omega)$ --- класс функций, измеримых по Лебегу,
+      \item $L^p(\Omega) \coloneqq \{ u \colon \int_\Omega \abs{u(x)}^p \dd x < +\infty \}$,
+      \item $L^\infty(\Omega) \coloneqq \{ u \colon \exists C > 0 \colon \abs{u(x)} \le c\ \text{почти всюду} \}$;
+    \end{itemize}
+  \item <<Неплохо бы уметь интегрировать по частям>>;
+  \item Умение работать с частными производными.
+\end{itemize}
+
+\section{Безымянная глава}
+
+\subsection{Простейшие уравнения}
+
+\subsubsection{Пример модели: распространение загрязнения}
+
+Есть пятно воды в одномерной реке (изначально представляющее собой отрезок в $\mathbb{R}$), текущей со скоростью $v$.
+
+\begin{figure}[ht]
+  \centering
+  {\color{gray} см. тетрадь}
+  \caption{Иллюстрация модели}
+\end{figure}
+
+На отрезке $[x, x + \Delta x]$ общая масса вещества будет равна $\int_x^{x + \Delta x} c(t, \xi) \dd \xi$, где $c(t, x)$ --- концентрация вещества в точке $x$ в момент времени $t$.
+
+Обозначим поток через границу направо через $q(t, x)$. Концентрация $c(t, x)$ подчиняется закону сохранения массы. Тогда справедливо:
+%
+\begin{equation}
+  \dv{t} \int_x^{x + \Delta x} c(t, \xi) \dd \xi = -q(t, x + \Delta x) + q(t, x)
+\end{equation}
+
+Отсюда:
+%
+\begin{equation}
+  \int_{x}^{x + \Delta x} \pdv{c}{t} (t, \xi) \dd \xi = \frac{q(t, x) - q(t, x + \Delta x)}{\Delta x}
+\end{equation}
+
+Устремляя $\Delta x \to 0$, получаем следующий закон:
+%
+\begin{equation}
+  \pdv{c}{t} (t, x) = - \pdv{q}{x} (t, x)
+\end{equation}
+
+В общем виде этот процесс называется \emph{диффузией} и выглядит следующим образом:
+%
+\begin{equation}
+  q(t, x) = k \pdv{c}{x} (t, x)
+\end{equation}
+%
+где $k = -D$, $D > 0$ --- \emph{коэффициент диффузии (коэффициент Дарси)}.
+
+Дифференцируя еще раз по $x$, получаем \emph{уравнение диффузии} (<<в скобочках --- уравнение теплопроводности>>):
+%
+\begin{equation}
+  \pdv{c}{t} (t, x) = D \pdv{c}{x}{x} (t, x)
+\end{equation}
+
+Возможен следующий случай: диффузии нет (чистый снос материала жидкостью). Тогда поток равен:
+%
+\begin{equation}
+  q(t, x) = vc(t, x)
+\end{equation}
+
+Дифференцируя по $t$, получаем \emph{транспортное уравнение/закон сохранения массы при конвекции/уравнение переноса}:
+%
+\begin{equation}
+  \pdv{c}{t} (t, x) = tx \pdv{c}{x} (t, x) \label{transport}
+\end{equation}
+
+Это линейное уравнение 2-го порядка.
+
+Возможен и третий случай (диффузия + конвекция). Тогда справедливо следующее:
+%
+\begin{equation}
+  q(t, x) = -D \pdv{c}{x} (t, x) + v c(t, x)
+\end{equation}
+
+Можно вывести \emph{уравнение диффузии с конвективным членом}:
+%
+\begin{equation}
+  \pdv{c}{t}(t, x) = D \pdv{c}{x}{x} (t, x) - v \pdv{c}{x} (t, x)
+\end{equation}
+
+\subsubsection{Решение транспортного уравнения}
+
+Требуется найти решение транспортного уравнения \eqref{transport}:
+%
+\begin{equation}
+  \pdv{c}{t} + v \pdv{c}{x} = 0 \label{transport2}
+\end{equation}
+%
+с начальными условиями $c(0, x) = c_0(x)$ (классическое решение --- {\color{gray} уточнить}).
+
+Каждая частица <<этой массы>> эволюционирует следующим образом:
+%
+\begin{equation}
+  \begin{cases}
+    \dv{x}{t} = v \\
+    \eval{x}_{t=0} = x_0
+  \end{cases}
+\end{equation}
+
+Есть догадка $c(t, x(t))$ --- константа. Докажем это аналитически. Продифференцируем:
+%
+\begin{equation}
+  \dv{t} c(t, x(t)) = \pdv{c}{t} (t, x(t)) + \pdv{c}{x} (t, x(t)) \cdot \dv{x}{t}
+\end{equation}
+
+Согласно \eqref{transport2}, правая часть равна\footnote{А еще $\dv{x}{t} = v$, если это вдруг не очевидно} $0$.
+
+Можно проиллюстрировать решение следующим образом:
+%
+\begin{figure}[ht]
+  \centering
+  {\color{gray} см. тетрадь}
+  \caption{Иллюстрация решения}
+\end{figure}
+
+Классическое решение выглядит следующим образом:
+%
+\begin{equation}
+  c(t, x) = c_0(x - vt)
+\end{equation}
+
+\begin{quote}
+  Если кто-то во все-это не верит/не понял/не запомнил --- наплевать, берем формулу и подставляем.
+\end{quote}
+
+\begin{thm}
+  Если $c_0 \in C^1(\mathbb{R})$, то $c(t, x) = c_0(x - vt)$ --- это единственное решение\footnote{<<Под решением здесь все еще подразумевается классическое>>} задачи Коши \eqref{transport2}.
+\end{thm}
+
+Такое решение называется решением бегущей волны (travelling wave):
+%
+\begin{figure}[ht]
+  \centering
+  {\color{gray} см. тетрадь}
+  \caption{Travelling wave}
+\end{figure}
+
+\subsubsection{Еще одна задача}
+
+Рассмотрим теперь другую задачу:
+%
+\begin{equation}
+  \begin{cases}
+    \pdv{c}{t} + v \pdv{c}{x} = f(t, x) \\
+    c(0, x)) = c_0(x)
+  \end{cases} \label{cauchy2}
+\end{equation}
+
+Рассмотрим производную $c(t, x(t))$:
+%
+\begin{equation}
+  \dv{t} c(t, x(t)) = \pdv{c}{t} + \pdv{c}{x} \cdot \dv{x}{t} = \pdv{c}{t} + v \pdv{c}{x} = f(t, x)
+\end{equation}
+
+В частности, $\dv{t} c(t, x_0 + vt) = f(t, x_0 + vt)$, откуда:
+%
+\begin{equation}
+  c(t, x_0 + vt) = c(0, x_0) + \int_0^t f(s, x_0 + vs) \dd s
+\end{equation}
+
+Так как $x_0 + vt = x$, имеем $x_0 = x - vt$. Подставляем:
+%
+\begin{equation}
+  \begin{aligned}
+  c(t, x) &= c(0, x - vt) + \int_0^t f(s, x - vt + vs) \dd s\\
+  &= c_0(x - vt) + \int_0^t f(s, x - v(t - s)) \dd s
+  \end{aligned} \label{sol-cauchy2}
+\end{equation}
+
+Сформулируем получившийся результат в виде теоремы:
+%
+\begin{thm}
+  Если $c_0 \in C^1(\mathbb{R})$, $f \in C(\mathbb{R}^+, \mathbb{R})$ и $\pdv{f}{x} \in C(\mathbb{R}^+, \mathbb{R})$, то \eqref{sol-cauchy2} --- единственное (классическое) решение \eqref{cauchy2}.
+\end{thm}
+
+\subsection{Основная лемма вариационного исчисления}
+
+\subsubsection{Формулировки}
+
+\begin{lem}\emph{(лемма Дюбуа-Раймона, слабая формулировка)}
+  $\Omega \in \mathbb{R}^n$ --- область, $f \in C(\Omega)$ и выполняется \begin{equation}
+    \int_\Omega f(x) g(x) \dd x = 0 \label{dubois-condition}
+  \end{equation}
+  для любых $g \in C_0^\infty(\Omega)$.\footnote{Определим $\supp g \coloneqq \overline{\{x \colon g(x) \neq 0 \}}$ --- носитель функции. Тогда $C_0^k$ --- семейство функций с компактным носителем, у которых первые $k$ производных непрерывны.} Тогда $f \equiv 0$.
+\end{lem}
+
+\begin{lem}\emph{(лемма Дюбуа-Раймона, сильная формулировка)}
+  $\Omega \in \mathbb{R}^n$ --- область, {\color{red} $f \in L^1_{\mathrm{loc}}(\Omega)$} и выполняется \eqref{dubois-condition} для любых $g \in C_0^\infty(\Omega)$. Тогда $f \equiv 0$ {\color{red} почти всюду в $\Omega$}.
+\end{lem}
+
+\subsubsection{Доказательство леммы в слабой формулировке}
+
+\begin{proof}
+  От противного. Пусть $f \in C(\Omega)$ удовлетворяет \eqref{dubois-condition} и $\exists x_0 \in \Omega \colon f(x_0) \neq 0$ (НУО $f(x_0) > 0$). В силу непрерывности $f$ существует $r > 0$ такое, что $f(x) > 0\ \forall x \in B_r(x_0) \subset \Omega$.
+  
+  Возьмем функцию $g(x) \in C^\infty(\Omega)$, которая бы всюду на $B_r(x_0)$ больше $0$, а всюду вне $B_r(x_0)$ --- равна $0$. Ясно, что $\supp g = \overline{B_r(x_0)} \Subset \Omega$,\footnote{$A \Subset B$ означает, что $A$ --- компактное подмножество $B$} тем самым $g \in C_0^\infty(\Omega)$.
+  
+  Мы знаем, что по условию:
+  \begin{equation}
+    \int_\Omega f(x) g(x) \dd x = 0
+  \end{equation}
+  
+  С другой стороны:
+  \begin{equation}
+    \begin{aligned}
+      \int_\Omega f(x) g(x) \dd x &= \int_{B_r(x_0)} f(x) g(x) \dd x + \int_{\Omega \setminus B_r(x_0)} f(x) g(x) \dd x \\
+      &= \int_{B_r(x_0)} f(x) g(x) \dd x \\
+      &> 0
+    \end{aligned} \label{estimation}
+  \end{equation}
+  Последнее справедливо в силу того, что обе функции положительны на области ненулевой меры.
+  
+  Осталось доказать, что нужная функция $g$ существует. Определим $\psi \colon \mathbb{R} \to \mathbb{R}$:
+  %
+  \begin{equation}
+    \psi(x) \coloneqq \begin{cases}
+      e^{1/\qty(x^2 - 1)} & x \in (-1, 1) \\
+      0 & \text{иначе}
+    \end{cases}
+  \end{equation}
+  
+  График такой функции выглядит следующим образом:
+  \begin{figure}[ht]
+    \centering
+    {\color{gray} см. тетрадь}
+    \caption{График функции $\psi(x)$}
+  \end{figure}
+
+  Положим $g(x) \coloneqq \psi(\abs{x - x_0} / r)$. Нетрудно показать, что она действительно удовлетворяет необходимым условиям.
+  
+  Таким образом, получаем, что \eqref{estimation} противоречит \eqref{dubois-condition}. Теорема доказана.
+\end{proof}
+
+\subsection{Колебания струны и волновое уравнение}
+
+Хотелось бы описать колебания струны уравнением.
+
+\subsubsection{Формулировка задачи}
+
+Пусть у нас есть струна, выведенная из состояния равновесия. Струна определена на отрезке и описывается координатой $x$ и смещением отностительно состояния равновесия $u = u(t, x)$:
+%
+\begin{figure}[ht]
+  \centering
+  {\color{gray} см. тетрадь}
+  \caption{Иллюстрация модели}
+\end{figure}
+
+Есть принцип, сформулированный в свое время еще Лагранжем (принцип минимального действия), как описать динамику механической системы: $A = \int_0^J (T - U) \dd t \longrightarrow \min$, где $A$ --- действие, $T$ --- кинетическая энергия, $U$ --- потенциальная энергия.
+
+Кинетическая энергия одного маленького отрезка струны равна $\frac{u_t^2}{2} \rho_0 \Delta x$, откуда:
+\begin{equation}
+  T = \int_0^L \rho_0 \frac{u_t^2}{2} \dd x.
+\end{equation}
+
+Работа одного маленького отрезка равна:
+%
+\begin{equation}
+  \begin{aligned}
+  \int_x^{x + \Delta x} \sqrt{1 + u_x^2}\ \dd x - \Delta x &= \int_x^{x + \Delta x} \sqrt{1 + y_x^2 - 1}\ \dd x \\
+  &\approx \int_x^{x + \Delta x} \left(1 + \frac{u_x^2}{2} - 1\right) \dd x \\
+  &= \frac{1}{2} u_x^2 \Delta x
+  \end{aligned}
+\end{equation}
+где приближение обусловлено тем, что квадрат смещения струны пренебрежимо мал.
+
+Работа всей струны равна\footnote{Да, именно эту хрень нам нужно минимизировать!}:
+%
+\begin{equation}
+  \begin{aligned}
+    A &= \int_0^J \dd t \left(\int_0^L \frac{\rho_0}{2} u_t^2 \dd x - \int_0^L \frac{J_0}{2} u_x^2 \dd x \right) \\
+    &= \frac{1}{2} \int_0^J \dd t \int_0^L \dd x \left(\rho_0 u_t^2 - J_0 u_x^2 \right)
+  \end{aligned}
+\end{equation}
+
+{\color{gray}
+
+Минимизируем функционал. Рассмотрим $A(u)$ и $A(u + \eps v)$, где $v \in C_0^\infty \left((0, L) \times (0, J) \right)$.
+
+Решим систему неравенств:
+%
+\begin{equation}
+  \begin{cases}
+    \displaystyle
+    \frac{A(u + \eps v) - A(u)}{\eps} \le 0 \\
+    {\color{gray} \ldots}
+  \end{cases}
+\end{equation}
+
+Устремим $\eps$ к $0$ и рассмотрим левую часть первого неравенства. Ее предел --- в точности производная по направлению $v$. (?)}

@@ -1,0 +1,91 @@
+\usepackage[headsepline]{scrlayer-scrpage}
+
+\usepackage{mathtools}
+\usepackage{physics}
+\usepackage{letltxmacro}
+\usepackage{xcolor}
+
+% Структурные дефайны
+\newtheorem{thm}{Теорема}
+\newtheorem*{thm*}{Теорема}
+\newtheorem{prop}[thm]{Утверждение} 
+\newtheorem*{prop*}{Утверждение}
+\newtheorem{cor}{Следствие}
+\newtheorem*{cor*}{Следствие}
+
+\theoremstyle{definition}
+\newtheorem*{defn}{Определение}
+
+\theoremstyle{remark}
+\newtheorem*{rem}{Замечание}
+\newtheorem*{rems}{Замечания}
+\newtheorem*{example}{Пример}
+\newtheorem*{examples}{Примеры}
+\newtheorem*{idea}{Идея доказательства}
+
+\newtheoremstyle{lemma}{}{}{}{}{\bfseries}{.}{.5em}{}
+\theoremstyle{lemma}
+\newtheorem{lem}{Лемма}
+\newtheorem*{lem*}{Лемма}
+
+% Сброс нумерации теорем и следствий
+\makeatletter
+\@addtoreset{cor}{thm}
+\makeatother
+
+% Нумеруем леммы кириллицей
+\renewcommand{\thelem}{\Asbuk{lem}}
+
+% Русские эпсилон и фи
+\LetLtxMacro{\temp}{\epsilon}
+\LetLtxMacro{\epsilon}{\varepsilon}
+\LetLtxMacro{\varepsilon}{\temp}
+\LetLtxMacro{\temp}{\phi}
+\LetLtxMacro{\phi}{\varphi}
+\LetLtxMacro{\varphi}{\temp}
+
+% shorthand for epsilon
+\newcommand{\eps}{\epsilon}
+
+% Полезные определения
+\newcommand{\nil}{\mathbf{0}}
+\DeclareMathOperator{\supp}{supp}
+
+% Стиль страницы
+\clearpairofpagestyles
+\pagestyle{scrheadings}
+\cfoot[\pagemark]{\pagemark}
+
+% Красивые пустые страницы (с заглушкой) после /cleardoublepage, если нужно
+% (украдено с https://tex.stackexchange.com/q/1727)
+\newcommand*{\blankpage}{%
+  \vspace*{\fill}
+  {\centering\itshape Эта страница намеренно оставлена пустой.\par}
+  \vspace{\fill}}
+\makeatletter
+\renewcommand*{\cleardoublepage}{%
+  \clearpage
+  \if@twoside
+    \ifodd
+      \c@page
+    \else
+      \blankpage
+      \thispagestyle{plain}
+      \newpage
+      \if@twocolumn
+        \hbox{}
+        \newpage
+      \fi
+    \fi
+  \fi}
+\makeatother
+
+% Линия для разделения лекций
+% (украдено с https://tex.stackexchange.com/questions/15119)
+\def\dateline#1{%
+  {\color{gray}
+  \hbox to \hsize{%
+    \hrulefill\quad\lower.3em\hbox{#1}\quad\hrulefill
+  }}
+  \vskip .7em
+}
