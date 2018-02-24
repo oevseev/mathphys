@@ -2,7 +2,7 @@
 
 \section*{Введение. Организационные моменты}
 
-\textbf{\color{blue}$\rightarrow$ Лектор --- Степанов Евгений Олегович. $\leftarrow$}
+\textbf{\color{blue}$\rightarrow$ Лектор --- Степанов Евгений Олегович.}
 
 \begin{quote}
   Вроде как считается, что на матмехе чуть больше уровень математической подготовки, и в этом должен быть ваш плюс.
@@ -30,17 +30,19 @@
   \item Умение работать с частными производными.
 \end{itemize}
 
-\section{Безымянная глава}
+\clearpage
 
-\subsection{Простейшие уравнения}
+\section{Уравнения в частных производных}
 
-\subsubsection{Пример модели: распространение загрязнения}
+\subsection{Модель распространения загрязнения}
+
+\subsubsection{Модель}
 
 Есть пятно воды в одномерной реке (изначально представляющее собой отрезок в $\mathbb{R}$), текущей со скоростью $v$.
 
 \begin{figure}[ht]
   \centering
-  {\color{gray} см. тетрадь}
+  \placeholder{см. тетрадь}
   \caption{Иллюстрация модели}
 \end{figure}
 
@@ -112,7 +114,7 @@
   \pdv{c}{t} + v \pdv{c}{x} = 0 \label{transport2}
 \end{equation}
 %
-с начальными условиями $c(0, x) = c_0(x)$ (классическое решение --- {\color{gray} уточнить}).
+с начальными условиями $c(0, x) = c_0(x)$ (классическое решение --- \placeholder{уточнить}).
 
 Каждая частица <<этой массы>> эволюционирует следующим образом:
 %
@@ -135,7 +137,7 @@
 %
 \begin{figure}[ht]
   \centering
-  {\color{gray} см. тетрадь}
+  \placeholder{см. тетрадь}
   \caption{Иллюстрация решения}
 \end{figure}
 
@@ -157,11 +159,11 @@
 %
 \begin{figure}[ht]
   \centering
-  {\color{gray} см. тетрадь}
+  \placeholder{см. тетрадь}
   \caption{Travelling wave}
 \end{figure}
 
-\subsubsection{Еще одна задача}
+\subsubsection{Решение задачи с начальными условиями}
 
 Рассмотрим теперь другую задачу:
 %
@@ -203,14 +205,14 @@
 
 \subsubsection{Формулировки}
 
-\begin{lem}\emph{(лемма Дюбуа-Раймона, слабая формулировка)}
+\begin{lem}\emph{(лемма Дюбуа-Реймона, слабая формулировка)}
   $\Omega \in \mathbb{R}^n$ --- область, $f \in C(\Omega)$ и выполняется \begin{equation}
     \int_\Omega f(x) g(x) \dd x = 0 \label{dubois-condition}
   \end{equation}
   для любых $g \in C_0^\infty(\Omega)$.\footnote{Определим $\supp g \coloneqq \overline{\{x \colon g(x) \neq 0 \}}$ --- носитель функции. Тогда $C_0^k$ --- семейство функций с компактным носителем, у которых первые $k$ производных непрерывны.} Тогда $f \equiv 0$.
 \end{lem}
 
-\begin{lem}\emph{(лемма Дюбуа-Раймона, сильная формулировка)}
+\begin{lem}\emph{(лемма Дюбуа-Реймона, сильная формулировка)}
   $\Omega \in \mathbb{R}^n$ --- область, {\color{red} $f \in L^1_{\mathrm{loc}}(\Omega)$} и выполняется \eqref{dubois-condition} для любых $g \in C_0^\infty(\Omega)$. Тогда $f \equiv 0$ {\color{red} почти всюду в $\Omega$}.
 \end{lem}
 
@@ -248,7 +250,7 @@
   График такой функции выглядит следующим образом:
   \begin{figure}[ht]
     \centering
-    {\color{gray} см. тетрадь}
+    \placeholder{см. тетрадь}
     \caption{График функции $\psi(x)$}
   \end{figure}
 
@@ -261,17 +263,21 @@
 
 Хотелось бы описать колебания струны уравнением.
 
-\subsubsection{Формулировка задачи}
+\subsubsection{Модель и формулировка задачи}
 
 Пусть у нас есть струна, выведенная из состояния равновесия. Струна определена на отрезке и описывается координатой $x$ и смещением отностительно состояния равновесия $u = u(t, x)$:
 %
 \begin{figure}[ht]
   \centering
-  {\color{gray} см. тетрадь}
+  \placeholder{см. тетрадь}
   \caption{Иллюстрация модели}
 \end{figure}
 
-Есть принцип, сформулированный в свое время еще Лагранжем (принцип минимального действия), как описать динамику механической системы: $A = \int_0^J (T - U) \dd t \longrightarrow \min$, где $A$ --- действие, $T$ --- кинетическая энергия, $U$ --- потенциальная энергия.
+Есть принцип, сформулированный в свое время еще Лагранжем (принцип минимального действия), как описать динамику механической системы:
+\begin{equation}
+  A = \int_0^\tau (T - U) \dd t \longrightarrow \min
+\end{equation}
+где $A$ --- действие, $T$ --- кинетическая энергия, $U$ --- потенциальная энергия.
 
 Кинетическая энергия одного маленького отрезка струны равна $\frac{u_t^2}{2} \rho_0 \Delta x$, откуда:
 \begin{equation}
@@ -289,27 +295,11 @@
 \end{equation}
 где приближение обусловлено тем, что квадрат смещения струны пренебрежимо мал.
 
-Работа всей струны равна\footnote{Да, именно эту хрень нам нужно минимизировать!}:
+Работа всей струны равна:
 %
 \begin{equation}
   \begin{aligned}
-    A &= \int_0^J \dd t \left(\int_0^L \frac{\rho_0}{2} u_t^2 \dd x - \int_0^L \frac{J_0}{2} u_x^2 \dd x \right) \\
-    &= \frac{1}{2} \int_0^J \dd t \int_0^L \dd x \left(\rho_0 u_t^2 - J_0 u_x^2 \right)
+    A &= \int_0^\tau \dd t \left(\int_0^L \frac{\rho_0}{2} u_t^2 \dd x - \int_0^L \frac{\tau_0}{2} u_x^2 \dd x \right) \\
+    &= \frac{1}{2} \int_0^\tau \dd t \int_0^L \dd x \left(\rho_0 u_t^2 - \tau_0 u_x^2 \right)
   \end{aligned}
 \end{equation}
-
-{\color{gray}
-
-Минимизируем функционал. Рассмотрим $A(u)$ и $A(u + \eps v)$, где $v \in C_0^\infty \left((0, L) \times (0, J) \right)$.
-
-Решим систему неравенств:
-%
-\begin{equation}
-  \begin{cases}
-    \displaystyle
-    \frac{A(u + \eps v) - A(u)}{\eps} \le 0 \\
-    {\color{gray} \ldots}
-  \end{cases}
-\end{equation}
-
-Устремим $\eps$ к $0$ и рассмотрим левую часть первого неравенства. Ее предел --- в точности производная по направлению $v$. (?)}

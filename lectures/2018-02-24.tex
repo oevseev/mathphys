@@ -1,0 +1,254 @@
+\dateline{24 февраля 2018 г.}
+
+\subsubsection{Вывод волнового уравнения}
+
+Решим задачу. Для этого минимизируем функционал. Рассмотрим $A(u)$ и $A(u + \eps v)$, где $v \in C_0^\infty \left((0, L) \times (0, \tau) \right)$.
+
+Можем записать систему неравенств:
+%
+\begin{equation}
+\left\{\begin{aligned}
+\frac{A(u + \eps v) - A(u)}{\eps} &\ge 0 && \eps > 0 \\
+\frac{A(u + \eps v) - A(u)}{\eps} &\le 0 && \eps < 0
+\end{aligned}\right.
+\end{equation}
+
+Устремим $\eps$ к $0$ и рассмотрим левую часть первого неравенства. Ее предел --- в точности производная по направлению $v$. $A'(x)v = \lim\limits_{\eps \to 0} \frac{A(u + \eps v) - A(u)}{\eps}$ --- \emph{первая вариация} $A$.
+
+Решение задачи удовлетворяет условию $\boxed{A'(u)v = 0}$.
+
+Распишем левую часть:
+\begin{equation}
+  \begin{aligned}
+    A'(u)v
+    &= \eval{\dv{\eps} A(u + \eps v)}_{\eps = 0} \\  
+    &= \dv{\eps} \int_0^\tau \dd t \int_0^L \dd x \left(\rho_0 \frac{\qty(\pdv{u}{t} + \eps \pdv{v}{\eps})^2}{2} - \tau_0 \frac{\qty(\pdv{u}{x} + \eps \pdv{v}{x})^2}{2}\right) \eval_{\eps = 0} \\
+    &= \int_0^\tau \dd t \int_0^L \dd x \left( \rho_0 \frac{2}{2} \qty(\pdv{u}{t} + \eps \pdv{v}{t}) - \tau_0 \frac{2}{2} \qty(\pdv{u}{x} + \eps \pdv{v}{x}) \pdv{v}{x} \right) \eval_{\eps=0} \\
+    &= \int_0^\tau \dd t \int_0^L \dd x \qty(\rho_0 \pdv{u}{t} \pdv{v}{t} - \tau_0 \pdv{u}{x} \pdv{v}{x}) \\
+    &= -\int_0^\tau \dd t \int_0^L \dd x \qty(\rho_0 \pdv{u}{t}{t} - \tau_0 \pdv{u}{x}{x}) \\
+    &= 0
+  \end{aligned}
+\end{equation}
+
+Отсюда $\rho_0 \pdv{u}{t}{t} - \tau_0 \pdv{u}{x}{x} = 0$ на $(0, \tau) \times (0, L)$. Можем переписать это в виде:
+\begin{equation}
+  \pdv{u}{t}{t} - \frac{\tau_0}{\rho_0} \pdv{u}{x}{x} = 0
+\end{equation}
+
+Полагая $c^2 \coloneqq \tau_0 / \rho_0$, получаем \emph{волновое уравнение}:
+\begin{equation}
+  \boxed{\pdv{u}{t}{t} - c^2 \pdv{u}{x}{x} = 0}\text{ на }(0, +\infty) \times (0, L) \label{wave}
+\end{equation}
+
+\subsubsection{Обобщение на $\mathbb{R}^n$}
+
+В качестве обобщения можно рассмотреть случай мембраны. Теперь $u = u(t, x, y)$ --- кинетическая энергия. Волновое уравнение будет выглядеть следующим образом:
+%
+\begin{equation}
+  \pdv{u}{t}{t} - c^2 \qty(\pdv{u}{x}{x} + \pdv{u}{y}{y}) = 0
+\end{equation}
+
+Если продолжать по аналогии, можно вывести, что уравнение будет выглядеть следующим образом\footnote{$\Delta x = \nabla \cdot (\nabla x)$ --- лапласиан}:
+%
+\begin{equation}
+  \pdv{u}{t}{t} - c^2 \Delta u = 0
+\end{equation}
+
+Для волнового уравнения существует запись через оператор Даламбера\footnote{см. Википедию}.
+
+\subsubsection{Решение задачи с начальными условиями}
+
+Пусть у нас имеется волновое уравнение (здесь $t \in \mathbb{R}^+$, а $x \in (-\infty, +\infty)$):
+\begin{equation}
+  \left\{\begin{aligned}
+    \pdv{u}{t}{t} - c^2 \pdv{u}{x}{x} &= 0 \\
+    u(0, x) &= u_0(x) \\
+    \pdv{u}{t} (0, x) &= v_0(x)
+  \end{aligned}\right. \label{problem1_3_4}
+\end{equation}
+
+Поясним. Струна колеблется, потому что она была изначально выведена из состояния равновесия --- этим и обусловлены два последних условия.
+
+Положим $w \coloneqq \pdv{u}{t} + c \pdv{u}{x}$. Рассмотрим следующую разность:
+\begin{equation}
+  \pdv{w}{t} - c \pdv{w}{x} = \pdv{t} \qty(\pdv{u}{t} + c \pdv{u}{x}) - c \pdv{x} \qty(\pdv{u}{t} + c \pdv{u}{x}) = \pdv{u}{t}{t} - c^2 \pdv{u}{x}{x} = 0
+\end{equation}
+
+Пусть $w(t, x) = \psi(x + ct)$ --- подходящая. Тогда из $\pdv{u}{t} + c \pdv{u}{x} = \psi(x + ct)$ можем получить:
+\begin{equation}
+  u(t, x) = \int_0^t \psi(x - c(t-s) + cs) \dd s + \phi(x - ct) \label{inteq}
+\end{equation}
+
+Найдем нужные $\phi$ и $\psi$. $\phi$ можем найти как:
+\begin{equation}
+  u(0, x) = \phi(x) = u_0(x)
+\end{equation}
+
+$\psi$ можем найти как:
+\begin{equation}
+  \begin{aligned}
+    \pdv{u}{t} (0, x)
+    &= \psi(x + ct) \eval_{t = 0} + \int_0^t \pdv{t} \qty(\ldots) \dd s \eval_{t = 0} - c \phi' (x - ct) \eval_{t = 0} \\
+    &= \psi(x) - c \phi'(x) = \pdv{v}{t} (x)
+  \end{aligned}
+\end{equation}
+
+Получаем систему уравнений для $\phi$ и $\psi$:
+\begin{equation}
+  \left\{\begin{aligned}
+    \phi(x) &= u_0(x) \\
+    \psi(x) &= v_0(x) + cu'_0(x)
+  \end{aligned}\right.
+\end{equation}
+которую надо подставить в \eqref{inteq}.
+
+В результате получим \emph{формулу Даламбера}:
+\begin{equation}
+  \boxed{u(t, x) = \frac{u_0(x - ct) + u_0(x + ct)}{2} + \frac{1}{2c} \int_{x-ct}^{x+ct} \pdv{v}{t}(\xi) \dd \xi} \label{dalambert}
+\end{equation}
+
+Сформулируем получившийся результат в виде теоремы:
+\begin{thm}
+  Пусть $u_0 \in C^2(\mathbb{R}), v_0 \in C^1(\mathbb{R})$. Тогда \eqref{dalambert} --- единственное решение \eqref{problem1_3_4}.
+\end{thm}
+
+Единственность следует из нашего построения.
+
+\subsubsection{Характеристические линии волнового уравнения}
+
+Прямые $x = x_0 + ct$ и $x = x_0 - ct$ называются \emph{характеристическими линиями} волнового уравнения:
+
+\begin{figure}[ht]
+  \centering
+  \placeholder{см. тетрадь}
+  \caption{Характеристические линии}
+\end{figure}
+
+Верхний/нижний конус, образованный характеристическими линиями, называется \emph{волновым конусом будущего/прошлого}.
+
+Чтобы понять их физический смысл, посмотрим на задачу в частных случаях. Пусть у нас произошло возмущение в одной точке (чего не может быть в гладком случае, поэтому рассмотрим сколь угодно малую окрестность). Тогда пересечение характеристики и мировой линии наблюдателя произойдет в момент, когда наблюдатель почувствует возмущение струны.
+
+\subsubsection{Вывод формулы Даламбера без использования транспортного уравнения}
+
+Для начала забудем о начальных условиях и получим общее решение уравнения. Пусть у нас имеется уравнение \eqref{wave}. Хотим перейти к новым переменным $\xi = \xi(x, t)$ и $\eta = \eta(x, t)$ так, чтобы $x$ и $t$ выражались через них как $x = X(\xi, \eta)$, $t = T(\xi, \eta)$ и уравнение имело какой-нибудь более простой вид:
+\begin{equation}
+  u(t, x) = u(X(\xi, \eta), T(\xi, \eta)) = U(\xi, \eta)
+\end{equation}
+
+Посмотрим, как выражаются производные после такой замены.
+\begin{equation}
+  \begin{aligned}
+    \pdv{u}{x} &= \pdv{u}{\xi} \pdv{\xi}{x} + \pdv{u}{\eta} \pdv{\eta}{x} \\
+    \pdv{u}{t} &= \pdv{u}{\xi} \pdv{\xi}{t} + \pdv{u}{\eta} \pdv{\eta}{t}
+  \end{aligned}
+\end{equation}
+
+Соответственно, вторые производные:
+\begin{align}
+  \begin{aligned}
+    \pdv{u}{x}{x}
+    &= \pdv{u}{\xi}{x} \pdv{\xi}{x} + \pdv{u}{\xi} \pdv{\xi}{x}{x} + \pdv{u}{\eta}{x} \pdv{\eta}{x} + \pdv{u}{\eta} \pdv{\eta}{x}{x} \\
+    &= \pdv{u}{\xi}{\xi} \qty(\pdv{\xi}{x})^2 + 2 \pdv{u}{\xi}{\eta} \pdv{\xi}{x} \pdv{\eta}{x} + \pdv{u}{\eta}{\eta} \qty(\pdv{\eta}{x})^2
+  \end{aligned} \\
+  \begin{aligned}
+    \pdv{u}{t}{t}
+    &= \pdv{u}{\xi}{t} \pdv{\xi}{t} + \pdv{u}{\xi} \pdv{\xi}{t}{t} + \pdv{u}{\eta}{t} \pdv{\eta}{t} + \pdv{u}{\eta} \pdv{\eta}{t}{t} \\
+    &= \pdv{u}{\xi}{\xi} \qty(\pdv{\xi}{t})^2 + 2 \pdv{u}{\eta}{\xi} \pdv{\xi}{t} \pdv{\eta}{t} + \pdv{u}{\eta}{\eta} \qty(\pdv{\eta}{t})^2
+  \end{aligned}
+\end{align}
+
+После такой замены волновое уравнение будет иметь следующий вид:
+\begin{equation}
+  \begin{aligned}
+    &\phantom{{}+{}} \pdv{u}{\xi}{\xi} \qty(\qty(\pdv{\xi}{t})^2 - c^2 \qty(\pdv{\eta}{x})^2) + 2 \pdv{u}{\xi}{\eta} \qty(\pdv{\xi}{t} \pdv{\eta}{t} - c^2 \pdv{\xi}{x} \pdv{\eta}{x}) \\
+    &+ \pdv{u}{\eta}{\eta} \qty(\qty(\pdv{\eta}{t})^2 - c^2 \qty(\pdv{\eta}{x})^2) + \pdv{u}{\xi} \qty(\pdv{\xi}{t}{t} - c^2 \pdv{\xi}{x}{x}) + \pdv{u}{\eta} \qty(\pdv{\eta}{t}{t} - c^2 \pdv{\eta}{x}{x}) \\
+    &= 0
+  \end{aligned} \label{ohfuck}
+\end{equation}
+
+\placeholder{Тут что-то было?}
+
+Произведем замену $\xi = x + ct$, $\eta = x - ct$. Из суммы \eqref{ohfuck} уйдут все члены, кроме $ 2 \pdv{u}{\xi}{\eta} \qty(\pdv{\xi}{t} \pdv{\eta}{t} - c^2 \pdv{\xi}{x} \pdv{\eta}{x})$. Мы \placeholder{почему-то} приходим к уравнению:
+\begin{equation}
+  \pdv{u}{\xi}{\eta} = 0
+\end{equation}
+
+Решим это уравнение. \placeholder{Я запутался, кто-нибудь, объясните мне, что тут происходит, ааа!}
+
+\bigskip
+\placeholder{Очень много пропущенного <<\emph{тупого счета}>>...}
+\bigskip
+
+\subsubsection{Неоднородное волновое уравнение}
+
+Хотим найти решение следующей задачи ($x \in \mathbb{R}, t \in \mathbb{R}^+$):
+%
+\begin{equation}
+  \left\{\begin{aligned}
+    \pdv{u}{t}{t} - c^2 \pdv{u}{x}{x} &= f(t, x) \\
+    u(0, x) &= u_0(x) \\
+    \pdv{u}{t} (0, x) &= v_0(x)
+  \end{aligned}\right. \label{problem1_3_5}
+\end{equation}
+
+В общем виде для решения такой задачи применяется так называемый метод Дюамеля. Мы же сначала рассмотрим частный случай задачи, когда $u_0 \equiv 0$, $x_0 \equiv 0$, а $f \not\equiv 0$.
+
+\paragraph{Частный случай}
+
+Пусть $u_0 \equiv 0$, $x_0 \equiv 0$, а $f \not\equiv 0$. Тогда \eqref{problem1_3_5} можно переписать в виде:
+%
+\begin{equation}
+  \left\{\begin{aligned}
+    \pdv{w}{t}{t} - c^2 \pdv{w}{x}{x} &= 0 \\
+    w(s, x) &= 0 \\
+    \pdv{w}{t} (s, x) &= f(s, x)
+  \end{aligned}\right. \label{Ps}
+\end{equation}
+
+То есть, для каждого фиксированного $s$ рассматривается задача, аналогичная \eqref{problem1_3_4}, за тем лишь исключением, что вместо начального момента времени, который был равен $0$, у нас теперь $s$.
+
+Такая вспомогательная задача имеет решение\footnote{Для существования $f$ должно быть $C^1$ по пространственной переменной}:
+%
+\begin{equation}
+  w(t, x; s) = \frac{1}{2c} \int_{x-c(t-s)}^{x+c(t-s)} f(s, \xi) \dd \xi
+\end{equation}
+
+\begin{thm}
+  Пусть $f(t, \bullet) \in C^1, f(\bullet, x) \in C$. Тогда
+  \begin{equation}
+    u(t, x) = \int_0^t w(t, x; s) \dd s
+  \end{equation}
+  --- единственное решение \eqref{Ps}.
+\end{thm}
+
+\begin{proof}
+  Очевидно, что $u(0, x) = 0$. Рассмотрим $\pdv{u}{t}$:
+  \begin{equation}
+    \pdv{u}{t} (t, x) = w(t, x, t) + \int_0^t w_t(t, x; s) \dd s.
+  \end{equation}
+  
+  Таким образом, начальные условия выполнены. Проверим, что решение удовлетворяет уравнению:
+  \begin{align}
+    \pdv{u}{t}{t} (t, x) &= \pdv{w}{t} (t, x; t) + \int_0^t \pdv{w}{t}{t} (t, x; s) \dd s \\
+    \pdv{u}{x}{x} (t, x) &= \int_0^t \pdv{w}{x}{x} (t, x; s) \dd s
+  \end{align}
+  
+  Заметим, что $f(t, x) = \pdv{w}{t} (t, x; t)$. Распишем левую часть волнового уравнения:
+  \begin{equation}
+    \pdv{u}{t}{t} - c^2 \pdv{u}{x}{x} = f(t, x) + \int_0^t \qty(\pdv{w}{t}{t} (t, x; s) - c^2 \pdv{w}{x}{x} (t, x; s)) \dd s
+  \end{equation}
+  
+  Интеграл справа, очевидно, равен $0$.
+\end{proof}
+
+\paragraph{Общий случай}
+
+Теперь предположим, что $x \in \mathbb{R}, t \in \mathbb{R}^+$. Тогда пусть $\hat{u}$ --- общее решение однородного волнового уравнение, $\tilde{u}$ --- частное решение неоднородного. Тогда имеет место следующая теорема.
+
+\begin{thm}
+  Решение \eqref{problem1_3_5} единственно и имеет вид $u = \hat{u} + \tilde{u}$.
+\end{thm}
+
+\begin{proof}
+  \placeholder{По линейности; уточнить у ребят}
+\end{proof}
