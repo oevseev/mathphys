@@ -1,10 +1,10 @@
 \usepackage[headsepline]{scrlayer-scrpage}
 
-\usepackage{mathtools}
-\usepackage{physics}
 \usepackage{letltxmacro}
-\usepackage{xcolor}
+\usepackage{mathtools}
 \usepackage{newclude}
+\usepackage{physics}
+\usepackage{xcolor}
 
 % Структурные дефайны
 \newtheorem{thm}{Теорема}
@@ -29,8 +29,13 @@
 \newtheorem{lem}{Лемма}
 \newtheorem*{lem*}{Лемма}
 
+\newtheoremstyle{problem}{}{}{}{}{\bfseries}{.}{.5em}{}
+\newtheorem{problem}{Задача}
+\newtheorem{problem*}{Задача}
+
 % Сброс нумерации теорем и следствий
 \makeatletter
+\@addtoreset{thm}{subsection}
 \@addtoreset{cor}{thm}
 \makeatother
 
@@ -47,12 +52,10 @@
 
 % shorthand for epsilon
 \newcommand{\eps}{\epsilon}
-\newcommand{\placeholder}[1]{{\color{gray}#1}}
-
 
 % Полезные определения
 \newcommand{\nil}{\mathbf{0}}
-\DeclareMathOperator{\supp}{supp}
+\newcommand{\placeholder}[1]{{\color{gray}#1}}
 
 % Стиль страницы
 \clearpairofpagestyles
