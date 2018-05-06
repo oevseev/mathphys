@@ -2,114 +2,156 @@
 
 \subsubsection{Вывод волнового уравнения}
 
-Решим задачу. Для этого минимизируем функционал. Рассмотрим $A(u)$ и $A(u + \eps v)$, где $v \in C_0^\infty \left((0, L) \times (0, \tau) \right)$.
+Чтобы решить задачу и вывести волновое уравнение, нам потребуется минимизировать функционал \eqref{lecture1-wave-functional}. Чтобы сделать это, рассмотрим его поведение при некотором маленьком возмущении, а именно --- рассмотрим $A(u)$ и $A(u + \eps v)$, где $v \in C_0^\infty \left((0, L) \times (0, \tau) \right)$.
 
-Можем записать систему неравенств:
+Из минимальности $A(u)$ следует, что $A(u) \le A(u + \eps v)$. Если мы перенесем правую часть влево и поделим на $\eps$, получим следующую систему неравенств:
 %
+\begin{equation*}
+  \left\{\begin{aligned}
+    \frac{A(u + \eps v) - A(u)}{\eps} &\ge 0 && \eps > 0 \\
+    \frac{A(u + \eps v) - A(u)}{\eps} &\le 0 && \eps < 0
+  \end{aligned}\right.
+\end{equation*}
+
+Устремим $\eps \to 0$ и рассмотрим левую часть первого неравенства. Ее предел --- в точности \emph{производная по направлению} $v$ (также называемая \emph{первой вариацией} $A$ или \emph{производной Гато} $A$ по направлению $v$):
+\begin{equation*}
+  A'(x)v = \lim\limits_{\eps \to 0} \frac{A(u + \eps v) - A(u)}{\eps}
+\end{equation*}
+
+По непрерывности можем заключить, что решение $u$ должно удовлетворять следующему условию:
 \begin{equation}
-\left\{\begin{aligned}
-\frac{A(u + \eps v) - A(u)}{\eps} &\ge 0 && \eps > 0 \\
-\frac{A(u + \eps v) - A(u)}{\eps} &\le 0 && \eps < 0
-\end{aligned}\right.
+  \boxed{A'(u)v = 0}
+  \label{lecture2-wave-necessary}
 \end{equation}
 
-Устремим $\eps$ к $0$ и рассмотрим левую часть первого неравенства. Ее предел --- в точности производная по направлению $v$. $A'(x)v = \lim\limits_{\eps \to 0} \frac{A(u + \eps v) - A(u)}{\eps}$ --- \emph{первая вариация} $A$.
-
-Решение задачи удовлетворяет условию $\boxed{A'(u)v = 0}$.
-
-Распишем левую часть:
-\begin{equation}
+Распишем левую часть условия\footnote{Пока мы не делаем никаких предположений о гладкости функции, считая их \emph{достаточно} гладкими, и допускаем, что мы можем внести производную под знак интеграла}:
+%
+\begin{equation*}
   \begin{aligned}
     A'(u)v
     &= \eval{\dv{\eps} A(u + \eps v)}_{\eps = 0} \\  
-    &= \dv{\eps} \int_0^\tau \dd t \int_0^L \dd x \left(\rho_0 \frac{\qty(\pdv{u}{t} + \eps \pdv{v}{\eps})^2}{2} - \tau_0 \frac{\qty(\pdv{u}{x} + \eps \pdv{v}{x})^2}{2}\right) \eval_{\eps = 0} \\
+    &= \dv{\eps} \int_0^\tau \dd t \int_0^L \dd x \left(\rho_0 \frac{\qty(\pdv{u}{t} + \eps \pdv{v}{\eps})^2}{2} - \tau_0
+     \frac{\qty(\pdv{u}{x} + \eps \pdv{v}{x})^2}{2}\right) \eval_{\eps = 0} \\
     &= \int_0^\tau \dd t \int_0^L \dd x \left( \rho_0 \frac{2}{2} \qty(\pdv{u}{t} + \eps \pdv{v}{t}) - \tau_0 \frac{2}{2} \qty(\pdv{u}{x} + \eps \pdv{v}{x}) \pdv{v}{x} \right) \eval_{\eps=0} \\
     &= \int_0^\tau \dd t \int_0^L \dd x \qty(\rho_0 \pdv{u}{t} \pdv{v}{t} - \tau_0 \pdv{u}{x} \pdv{v}{x}) \\
     &= -\int_0^\tau \dd t \int_0^L \dd x \qty(\rho_0 \pdv{u}{t}{t} - \tau_0 \pdv{u}{x}{x}) \\
     &= 0
   \end{aligned}
-\end{equation}
+\end{equation*}
 
-Отсюда $\rho_0 \pdv{u}{t}{t} - \tau_0 \pdv{u}{x}{x} = 0$ на $(0, \tau) \times (0, L)$. Можем переписать это в виде:
-\begin{equation}
+Отсюда \placeholder{(почему? Как-то связано с основной леммой, но я не вкурил)} на $(0, \tau) \times (0, L)$ имеем:
+%
+\begin{equation*}
+  \rho_0 \pdv{u}{t}{t} - \tau_0 \pdv{u}{x}{x} = 0
+\end{equation*}
+
+Можем поделить на $\rho_0$ и переписать это в виде:
+%
+\begin{equation*}
   \pdv{u}{t}{t} - \frac{\tau_0}{\rho_0} \pdv{u}{x}{x} = 0
-\end{equation}
+\end{equation*}
 
 Полагая $c^2 \coloneqq \tau_0 / \rho_0$, получаем \emph{волновое уравнение}:
+%
 \begin{equation}
-  \boxed{\pdv{u}{t}{t} - c^2 \pdv{u}{x}{x} = 0}\text{ на }(0, +\infty) \times (0, L) \label{wave}
+  \boxed{\pdv{u}{t}{t} - c^2 \pdv{u}{x}{x} = 0}\ \text{на}\ (0, +\infty) \times (0, L) \label{wave}
 \end{equation}
+%
+--- уравнение в частных производных 2-го порядка.
 
 \subsubsection{Обобщение на $\mathbb{R}^n$}
 
-В качестве обобщения можно рассмотреть случай мембраны. Теперь $u = u(t, x, y)$ --- кинетическая энергия. Волновое уравнение будет выглядеть следующим образом:
+В качестве обобщения можно рассмотреть случай двумерной мембраны. Теперь $u = u(t, x, y)$. Волновое уравнение будет выглядеть следующим образом:
 %
-\begin{equation}
+\begin{equation*}
   \pdv{u}{t}{t} - c^2 \qty(\pdv{u}{x}{x} + \pdv{u}{y}{y}) = 0
-\end{equation}
+\end{equation*}
 
-Если продолжать по аналогии, можно вывести, что уравнение будет выглядеть следующим образом\footnote{$\Delta x = \nabla \cdot (\nabla x)$ --- лапласиан}:
+Если продолжать по аналогии, можно вывести, что уравнение будет выглядеть следующим образом\footnote{Напоминание: $\Delta x = \nabla \cdot (\nabla x)$ --- лапласиан}:
 %
-\begin{equation}
+\begin{equation*}
   \pdv{u}{t}{t} - c^2 \Delta u = 0
-\end{equation}
+\end{equation*}
 
-Для волнового уравнения существует запись через оператор Даламбера\footnote{см. Википедию}.
+Для волнового уравнения существует следующая запись:
+%
+\begin{equation*}
+  \square_{c^2} u = 0
+\end{equation*}
+%
+где $\square_k \coloneqq \pdv{u}{t}{t} - k \Delta u$ --- \emph{оператор Даламбера}.
 
-\subsubsection{Решение задачи с начальными условиями}
+\subsubsection{Решение задачи Коши для волнового уравнения}
 
-Пусть у нас имеется волновое уравнение (здесь $t \in \mathbb{R}^+$, а $x \in (-\infty, +\infty)$):
+Пусть у нас имеется волновое уравнение (здесь $t \in \mathbb{R}^+$, а $x \in (-\infty, +\infty)$ --- то есть у нас случай \emph{бесконечной} струны):
+%
 \begin{equation}
   \left\{\begin{aligned}
     \pdv{u}{t}{t} - c^2 \pdv{u}{x}{x} &= 0 \\
     u(0, x) &= u_0(x) \\
     \pdv{u}{t} (0, x) &= v_0(x)
-  \end{aligned}\right. \label{problem1_3_4}
+  \end{aligned}\right.
+  \label{lecture2-wave-cauchy}
 \end{equation}
 
-Поясним. Струна колеблется, потому что она была изначально выведена из состояния равновесия --- этим и обусловлены два последних условия.
+Поясним. Струна колеблется, потому что она была изначально выведена из состояния равновесия --- этим и обусловлены два последних условия (поточечно на начальное положение и скорость в нулевой момент времени).
 
-Положим $w \coloneqq \pdv{u}{t} + c \pdv{u}{x}$. Рассмотрим следующую разность:
-\begin{equation}
+Утверждается, что решение волнового уравнения можно свести к решению транспортного. Для этого положим $w \coloneqq \pdv{u}{t} + c \pdv{u}{x}$ и рассмотрим следующую разность:
+%
+\begin{equation*}
   \pdv{w}{t} - c \pdv{w}{x} = \pdv{t} \qty(\pdv{u}{t} + c \pdv{u}{x}) - c \pdv{x} \qty(\pdv{u}{t} + c \pdv{u}{x}) = \pdv{u}{t}{t} - c^2 \pdv{u}{x}{x} = 0
+\end{equation*}
+
+Относительно $w$ это транспортное уравнение, поэтому пусть $w(t, x) = \psi(x + ct)$ --- некоторое решение вида <<бегущей волны>>. Мы получаем второе транспортное уравнение --- на этот раз неоднородное:
+%
+\begin{equation*}
+  \pdv{u}{t} + c \pdv{u}{x} = \psi(x + ct)
+\end{equation*}
+
+Для неоднородного уравнения мы знаем, что его решение выглядит как \eqref{lecture1-transport-nonhom-sol}, поэтому можем расписать:
+%
+\begin{equation}
+  u(t, x) = \phi(x - ct) + \int_0^t \psi(x - c(t-s) + cs) \dd s
+  \label{lecture2-wave-inteq}
 \end{equation}
 
-Пусть $w(t, x) = \psi(x + ct)$ --- подходящая. Тогда из $\pdv{u}{t} + c \pdv{u}{x} = \psi(x + ct)$ можем получить:
-\begin{equation}
-  u(t, x) = \int_0^t \psi(x - c(t-s) + cs) \dd s + \phi(x - ct) \label{inteq}
-\end{equation}
-
-Найдем нужные $\phi$ и $\psi$. $\phi$ можем найти как:
-\begin{equation}
+Осталось лишь найти подходящие $\phi$ и $\psi$. $\phi$ можем найти как:
+%
+\begin{equation*}
   u(0, x) = \phi(x) = u_0(x)
-\end{equation}
+\end{equation*}
 
-$\psi$ можем найти как:
-\begin{equation}
+$\psi$ же можем найти как:
+%
+\begin{equation*}
   \begin{aligned}
     \pdv{u}{t} (0, x)
     &= \psi(x + ct) \eval_{t = 0} + \int_0^t \pdv{t} \qty(\ldots) \dd s \eval_{t = 0} - c \phi' (x - ct) \eval_{t = 0} \\
     &= \psi(x) - c \phi'(x) = \pdv{v}{t} (x)
   \end{aligned}
-\end{equation}
+\end{equation*}
 
 Получаем систему уравнений для $\phi$ и $\psi$:
-\begin{equation}
+%
+\begin{equation*}
   \left\{\begin{aligned}
     \phi(x) &= u_0(x) \\
     \psi(x) &= v_0(x) + cu'_0(x)
   \end{aligned}\right.
-\end{equation}
-которую надо подставить в \eqref{inteq}.
+\end{equation*}
+%
+которую надо подставить в \eqref{lecture2-wave-inteq}.
 
 В результате получим \emph{формулу Даламбера}:
+%
 \begin{equation}
   \boxed{u(t, x) = \frac{u_0(x - ct) + u_0(x + ct)}{2} + \frac{1}{2c} \int_{x-ct}^{x+ct} \pdv{v}{t}(\xi) \dd \xi} \label{dalambert}
 \end{equation}
 
-Сформулируем получившийся результат в виде теоремы:
+Мы в очередной раз не делали никаких предположений о классах гладкости функций, поэтому снова оформим результат в виде теоремы:
+%
 \begin{thm}
-  Пусть $u_0 \in C^2(\mathbb{R}), v_0 \in C^1(\mathbb{R})$. Тогда \eqref{dalambert} --- единственное решение \eqref{problem1_3_4}.
+  Пусть $u_0 \in C^2(\mathbb{R}), v_0 \in C^1(\mathbb{R})$. Тогда \eqref{dalambert} --- единственное решение \eqref{lecture2-wave-cauchy}.
 \end{thm}
 
 Единственность следует из нашего построения.
@@ -128,6 +170,8 @@ $\psi$ можем найти как:
 
 Чтобы понять их физический смысл, посмотрим на задачу в частных случаях. Пусть у нас произошло возмущение в одной точке (чего не может быть в гладком случае, поэтому рассмотрим сколь угодно малую окрестность). Тогда пересечение характеристики и мировой линии наблюдателя произойдет в момент, когда наблюдатель почувствует возмущение струны.
 
+\placeholder{Тут на самом деле было сильно больше текста, но нужен ли он?}
+
 \subsubsection{Вывод формулы Даламбера без использования транспортного уравнения}
 
 Для начала забудем о начальных условиях и получим общее решение уравнения. Пусть у нас имеется уравнение \eqref{wave}. Хотим перейти к новым переменным $\xi = \xi(x, t)$ и $\eta = \eta(x, t)$ так, чтобы $x$ и $t$ выражались через них как $x = X(\xi, \eta)$, $t = T(\xi, \eta)$ и уравнение имело какой-нибудь более простой вид:
@@ -135,7 +179,8 @@ $\psi$ можем найти как:
   u(t, x) = u(X(\xi, \eta), T(\xi, \eta)) = U(\xi, \eta)
 \end{equation}
 
-Посмотрим, как выражаются производные после такой замены.
+Посмотрим, как выражаются производные после такой замены. По правилу цепочки:
+%
 \begin{equation}
   \begin{aligned}
     \pdv{u}{x} &= \pdv{u}{\xi} \pdv{\xi}{x} + \pdv{u}{\eta} \pdv{\eta}{x} \\
@@ -143,8 +188,9 @@ $\psi$ можем найти как:
   \end{aligned}
 \end{equation}
 
-Соответственно, вторые производные:
-\begin{align}
+Аналогично можем расписать и вторые производные:
+%
+\begin{align*}
   \begin{aligned}
     \pdv{u}{x}{x}
     &= \pdv{u}{\xi}{x} \pdv{\xi}{x} + \pdv{u}{\xi} \pdv{\xi}{x}{x} + \pdv{u}{\eta}{x} \pdv{\eta}{x} + \pdv{u}{\eta} \pdv{\eta}{x}{x} \\
@@ -155,88 +201,102 @@ $\psi$ можем найти как:
     &= \pdv{u}{\xi}{t} \pdv{\xi}{t} + \pdv{u}{\xi} \pdv{\xi}{t}{t} + \pdv{u}{\eta}{t} \pdv{\eta}{t} + \pdv{u}{\eta} \pdv{\eta}{t}{t} \\
     &= \pdv{u}{\xi}{\xi} \qty(\pdv{\xi}{t})^2 + 2 \pdv{u}{\eta}{\xi} \pdv{\xi}{t} \pdv{\eta}{t} + \pdv{u}{\eta}{\eta} \qty(\pdv{\eta}{t})^2
   \end{aligned}
-\end{align}
+\end{align*}
 
 После такой замены волновое уравнение будет иметь следующий вид:
-\begin{equation}
+%
+\begin{equation*}
   \begin{aligned}
     &\phantom{{}+{}} \pdv{u}{\xi}{\xi} \qty(\qty(\pdv{\xi}{t})^2 - c^2 \qty(\pdv{\eta}{x})^2) + 2 \pdv{u}{\xi}{\eta} \qty(\pdv{\xi}{t} \pdv{\eta}{t} - c^2 \pdv{\xi}{x} \pdv{\eta}{x}) \\
     &+ \pdv{u}{\eta}{\eta} \qty(\qty(\pdv{\eta}{t})^2 - c^2 \qty(\pdv{\eta}{x})^2) + \pdv{u}{\xi} \qty(\pdv{\xi}{t}{t} - c^2 \pdv{\xi}{x}{x}) + \pdv{u}{\eta} \qty(\pdv{\eta}{t}{t} - c^2 \pdv{\eta}{x}{x}) \\
     &= 0
-  \end{aligned} \label{ohfuck}
-\end{equation}
+  \end{aligned}
+  \label{lecture2-wave-reformulated}
+\end{equation*}
 
-\placeholder{Тут что-то было?}
+Мы хотим выбрать $\xi$ и $\eta$ так, чтобы волновое уравнение разрешалось как относительно $\xi$, так и относительно $\eta$:
+%
+\begin{align*}
+  \qty(\pdv{\xi}{t})^2 - c^2 \qty(\pdv{\xi}{x})^2 = 0 \\
+  \qty(\pdv{\eta}{t})^2 - c^2 \qty(\pdv{\eta}{x})^2 = 0
+\end{align*}
 
-Произведем замену $\xi = x + ct$, $\eta = x - ct$. Из суммы \eqref{ohfuck} уйдут все члены, кроме $ 2 \pdv{u}{\xi}{\eta} \qty(\pdv{\xi}{t} \pdv{\eta}{t} - c^2 \pdv{\xi}{x} \pdv{\eta}{x})$. Мы \placeholder{почему-то} приходим к уравнению:
+Для этого раскроем сумму квадратов:
+%
+\begin{align*}
+  \qty(\pdv{\xi}{t} - c \pdv{\xi}{x}) \qty(\pdv{\xi}{t} + c \pdv{\xi}{x}) = 0 \\
+  \qty(\pdv{\eta}{t} - c \pdv{\eta}{x}) \qty(\pdv{\eta}{t} + c \pdv{\eta}{x}) = 0
+\end{align*}
+
+\placeholder{Пропуск. Здесь я не очень понимаю, что происходит}
+
+Произведем замену $\xi = x + ct$, $\eta = x - ct$. Из суммы \eqref{lecture2-wave-reformulated} уйдут все члены, кроме $ 2 \pdv{u}{\xi}{\eta} \qty(\pdv{\xi}{t} \pdv{\eta}{t} - c^2 \pdv{\xi}{x} \pdv{\eta}{x})$. Мы \placeholder{почему-то} приходим к уравнению:
 \begin{equation}
   \pdv{u}{\xi}{\eta} = 0
 \end{equation}
 
-Решим это уравнение. \placeholder{Я запутался, кто-нибудь, объясните мне, что тут происходит, ааа!}
-
-\bigskip
 \placeholder{Очень много пропущенного <<\emph{тупого счета}>>...}
-\bigskip
 
 \subsubsection{Неоднородное волновое уравнение}
 
-Хотим найти решение следующей задачи ($x \in \mathbb{R}, t \in \mathbb{R}^+$):
+Теперь предположим, что в правой части \eqref{lecture2-wave-cauchy} у нас имеется некоторое возмущение ($x \in \mathbb{R}, t \in \mathbb{R}^+$):
 %
 \begin{equation}
   \left\{\begin{aligned}
     \pdv{u}{t}{t} - c^2 \pdv{u}{x}{x} &= f(t, x) \\
     u(0, x) &= u_0(x) \\
     \pdv{u}{t} (0, x) &= v_0(x)
-  \end{aligned}\right. \label{problem1_3_5}
+  \end{aligned}\right.
+  \label{lecture2-wave-nonhom}
 \end{equation}
 
-В общем виде для решения такой задачи применяется так называемый метод Дюамеля. Мы же сначала рассмотрим частный случай задачи, когда $u_0 \equiv 0$, $x_0 \equiv 0$, а $f \not\equiv 0$.
+Такая задача называется \emph{задачей возмущенных колебаний струны}. В общем виде для ее решения применяется так называемый метод Дюамеля. Мы же сначала рассмотрим частный случай задачи, когда $u_0 \equiv 0$, $x_0 \equiv 0$, а $f \not\equiv 0$.
 
 \paragraph{Частный случай}
 
-Пусть $u_0 \equiv 0$, $x_0 \equiv 0$, а $f \not\equiv 0$. Тогда \eqref{problem1_3_5} можно переписать в виде:
+Пусть $u_0 \equiv 0$, $x_0 \equiv 0$, а $f \not\equiv 0$. Тогда \eqref{lecture2-wave-nonhom} можно переписать в виде:
 %
 \begin{equation}
   \left\{\begin{aligned}
     \pdv{w}{t}{t} - c^2 \pdv{w}{x}{x} &= 0 \\
     w(s, x) &= 0 \\
     \pdv{w}{t} (s, x) &= f(s, x)
-  \end{aligned}\right. \label{Ps}
+  \end{aligned}\right.
+  \label{lecture2-problem-s}
 \end{equation}
 
-То есть, для каждого фиксированного $s$ рассматривается задача, аналогичная \eqref{problem1_3_4}, за тем лишь исключением, что вместо начального момента времени, который был равен $0$, у нас теперь $s$.
+То есть, для каждого фиксированного $s$ рассматривается задача, аналогичная \eqref{lecture2-wave-cauchy}, за тем лишь исключением, что вместо начального момента времени, который был равен $0$, у нас теперь $s$.
 
 Такая вспомогательная задача имеет решение\footnote{Для существования $f$ должно быть $C^1$ по пространственной переменной}:
 %
-\begin{equation}
+\begin{equation*}
   w(t, x; s) = \frac{1}{2c} \int_{x-c(t-s)}^{x+c(t-s)} f(s, \xi) \dd \xi
-\end{equation}
+\end{equation*}
 
 \begin{thm}
-  Пусть $f(t, \bullet) \in C^1, f(\bullet, x) \in C$. Тогда
-  \begin{equation}
+  Пусть $f(t, \bullet) \in C^1(\mathbb{R}), f(\bullet, x) \in C(\mathbb{R}^+)$. Тогда
+  \begin{equation*}
     u(t, x) = \int_0^t w(t, x; s) \dd s
-  \end{equation}
-  --- единственное решение \eqref{Ps}.
+  \end{equation*}
+  --- единственное решение \eqref{lecture2-problem-s}.
 \end{thm}
 
 \begin{proof}
   Очевидно, что $u(0, x) = 0$. Рассмотрим $\pdv{u}{t}$:
-  \begin{equation}
-    \pdv{u}{t} (t, x) = w(t, x, t) + \int_0^t w_t(t, x; s) \dd s.
-  \end{equation}
+  \begin{equation*}
+    \pdv{u}{t} (t, x) = w(t, x; t) + \int_0^t w_t(t, x; s) \dd s.
+  \end{equation*}
   
   Таким образом, начальные условия выполнены. Проверим, что решение удовлетворяет уравнению:
-  \begin{align}
+  \begin{align*}
     \pdv{u}{t}{t} (t, x) &= \pdv{w}{t} (t, x; t) + \int_0^t \pdv{w}{t}{t} (t, x; s) \dd s \\
     \pdv{u}{x}{x} (t, x) &= \int_0^t \pdv{w}{x}{x} (t, x; s) \dd s
-  \end{align}
+  \end{align*}
   
   Заметим, что $f(t, x) = \pdv{w}{t} (t, x; t)$. Распишем левую часть волнового уравнения:
-  \begin{equation}
+  \begin{equation*}
     \pdv{u}{t}{t} - c^2 \pdv{u}{x}{x} = f(t, x) + \int_0^t \qty(\pdv{w}{t}{t} (t, x; s) - c^2 \pdv{w}{x}{x} (t, x; s)) \dd s
-  \end{equation}
+  \end{equation*}
   
   Интеграл справа, очевидно, равен $0$.
 \end{proof}
@@ -246,9 +306,30 @@ $\psi$ можем найти как:
 Теперь предположим, что $x \in \mathbb{R}, t \in \mathbb{R}^+$. Тогда пусть $\hat{u}$ --- общее решение однородного волнового уравнение, $\tilde{u}$ --- частное решение неоднородного. Тогда имеет место следующая теорема.
 
 \begin{thm}
-  Решение \eqref{problem1_3_5} единственно и имеет вид $u = \hat{u} + \tilde{u}$.
+  Решение \eqref{lecture2-wave-nonhom} единственно и имеет вид $u = \hat{u} + \tilde{u}$.
 \end{thm}
 
 \begin{proof}
-  \placeholder{По линейности; уточнить у ребят}
+  Оператор Даламбера --- это линейный оператор:
+  %
+  \begin{equation*}
+    \square_{c^2} u = \square_{c^2} \hat{u} + \square_{c^2} \tilde{u}
+  \end{equation*}
+  
+  Начальные условия выглядит следующим образом:
+  %
+  \begin{align*}
+    u(0, x) = \hat{u}(0, x) + \tilde{u}(0, x) = u_0(x) \\
+    \pdv{u}{t}(0, x) = \pdv{\hat{u}}{t}(0, x) + \pdv{\tilde{u}}{t}(0, x) = v_0(x)
+  \end{align*}
+  
+  Теперь докажем единственность. Предположим, что существует два решения $u_1$ и $u_2$ волнового уравнения \eqref{lecture2-wave-nonhom}. Рассмотрим их разность $u \coloneqq u_1 - u_2$. Тогда:
+  %
+  \begin{align*}
+    \square_{c^2} u = \square_{c^2} u_1 - \square_{c^2} u_2 = f - f = 0 \\
+    u(0, x) = u_1(0, x) - u_2(0, x) = 0 \\
+    \pdv{u}{t} (0, x) = \pdv{u_1}{t} (0, x) - \pdv{u_2}{t} (0, x) = 0
+  \end{align*}
+  
+  Из формулы Даламбера заключаем, что решение --- тождественный ноль, что означает, что $u_1 = u_2$.
 \end{proof}
