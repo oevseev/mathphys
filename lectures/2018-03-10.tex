@@ -1,0 +1,204 @@
+\dateline{10 марта 2018 г.}
+
+\setcounter{subsection}{4}
+
+\subsection{Принцип максимума для уравнения теплопроводности}
+
+\placeholder{Пропущена первая половина лекции}
+
+\begin{proof}
+  Зафиксируем $u$, возьмем $\eps > 0$. Положим
+  \begin{equation}
+    v_\eps(t, x) \coloneqq u(t, x) = e \abs{x}^2 \ge u(t, x)
+  \end{equation}
+  
+  Применим $L$ к $v_\eps$:
+  \begin{equation}
+    Lv_\eps = \pdv{v_\eps}{t} - a^2 \Delta v_\eps = (\pdv{u}{t} - a^2 \Delta u) - \eps a^2 \Delta \underbrace{\abs{x}^2}_{2n} = -2\eps a^2 n < 0
+  \end{equation}
+  
+  Докажем, что $v_\eps$ не достигает своего максимума на <<верхней крышке>> или внутри стакана:
+  
+  \begin{enumerate}
+    \item Пусть максимум достигается на $(x_0, t_0)$, где $x_0 \in \Omega$, $t_0 < T$. Тогда:
+    \begin{align}
+      \pdv{v_\eps}{t}(t_0, x_0) &= 0 \\
+      \pdv{v_\eps}{x_i}{x_i}(t_0, x_0) &\le 0
+    \end{align}
+    
+    Отсюда:
+    \begin{equation}
+      (Lv_\eps)(t_0, x_0) = \pdv{v_\eps}{t} - a^2 \sum_i \pdv{v_\eps}{x_i^2} \eval_{t_0, x_0} \ge 0
+    \end{equation}
+    
+    \item Пусть максимум достигается на... \placeholder{чем?} Считаем то же самое (\placeholder{что?})
+  \end{enumerate}
+
+  Заключаем, что не на параболической границе функция достигать своего максимума не можем. В итоге имеем\footnote{$S_T$ --- параболическая граница}:
+  \begin{equation}
+    u(t, x) \le v_\eps(t, x) \le \max_{\overline{Q_T}} v_\eps = \max_{S_T} v_\eps = \max_{S_T} (u + \eps\abs{x}^2) \le \max_{S_T} u + \eps \max_{S_T} \abs{x}^2
+  \end{equation}
+  
+  Подводя итог, заключаем, что:
+  \begin{equation}
+    u(t, x) \le \max_{S_T} u + C\eps
+  \end{equation}
+  
+  Теорема доказана.
+\end{proof}
+
+\subsubsection{Принцип максимума уравнения теплопроводности во всем пространстве}
+
+Пусть $Lu = \pdv{u}{t} - a^2 \Delta u = 0$, $t \in \mathbb{R}^+$, $x \in \mathbb{R}^n$. ($u$ --- классическое решение, а, следовательно, непрерывно вплоть до $t = 0$).
+
+{\color{red} Пусть дополнительно $\abs{u(t, x)} \le C_T$ для всех $(t, x) \in [0, T] \times \mathbb{R}^n$} --- <<стакан стал бесконечен и боковых стенок у него нет>>; параболическая граница --- $t = 0$ (вырожденный случай).
+
+Введем следующие обозначения:
+\begin{align}
+  \begin{aligned}
+    M_+ &\coloneqq \sup_{x \in \mathbb{R}^n, t \in [0, T]} u(t, x) \\
+    M_- &\coloneqq \inf_{x \in \mathbb{R}^n, t \in [0, T]} u(t, x) 
+  \end{aligned} \\
+  \begin{aligned}
+    N_+ &\coloneqq \sup_{x \in \mathbb{R}^n} u(0, x) \\
+    N_- &\coloneqq \inf_{x \in \mathbb{R}^n} u(0, x)
+  \end{aligned}
+\end{align}
+
+\begin{thm}
+  $M_+ = N_+$.
+\end{thm}
+
+\begin{cor}
+  $M_- = N_-$.
+\end{cor}
+
+\begin{proof}
+  Применим теорему к $-u$.
+\end{proof}
+
+Поставим задачу Коши:
+\begin{equation}
+  \left\{\begin{aligned}
+  u_t - a^2 \Delta u = f \\
+  u(0, x) = u_0(x)
+  \end{aligned}\right. \label{cauchy_max}
+\end{equation}
+
+Имеет место быть следующее следствие:
+
+\begin{cor}
+  Система \eqref{cauchy_max} не может иметь двух разных классических решений, удовлетворяющих ограничениям из начала параграфа.
+\end{cor}
+
+\begin{proof}
+  Пусть $u_1, u_2$ --- два решения. Рассмотрим $u \coloneqq u_1 - u_2$. Тогда система \eqref{cauchy_max} превращается в:
+  \begin{equation}
+    \left\{\begin{aligned}
+      Lu = Lu_1 - Lu_2 = f - f = 0 \\
+      u(0, x) = u_1(0, x) - u_2(0, x) = 0
+    \end{aligned}\right.
+  \end{equation}
+  
+  Отсюда $u$ --- класс решений; при этом $u$ также лежит в необходимом классе функций. Следовательно, $\sup u = \inf u = \sup_{S_T} u = 0$, откуда $u$ --- тождественный ноль и $u_1 = u_2$.
+\end{proof}
+
+\begin{rem}
+  Пример не единственности (неклассического) решения --- пример Тихонова.
+\end{rem}
+
+\begin{proof}(теоремы)
+  Положим \placeholder{\sout{огромнейший болт на все это}}:
+  \begin{equation}
+    v_\eps(t, x) \coloneqq u(t, x) - \eps (2n a^2 t + \abs{x}^2)
+  \end{equation}
+  
+  Применим $L$:
+  \begin{equation}
+    Lv_\eps = Lu - \eps L (2n a^2 t + \abs{x}^2) = -\eps (2na^2 - a^2 2n) = 0
+  \end{equation}
+  
+  Рассмотрим цилиндр $\overline{Q_{R, T}} \coloneqq [0, T] \times \overline{B_R(0)}$.
+  
+  Оценим $v_\eps(0, x)$ сверху:
+  \begin{equation}
+    v_\eps(0, x) = u(0, x) - \eps \abs{x}^2 \le N_+
+  \end{equation}
+  
+  Посмотрим на поведение $v_\eps$ на границе шара:
+  \begin{equation}
+    v_\eps(t, x) \eval_{x \in \fr B_R(0)} = u(t, x) \eval_{x \in \fr B_R(0)} = \eps R^2 - 2 a^2 n \eps t \le M_+ - \eps R^2 \le N_+ \label{kek}
+  \end{equation}
+  
+  Последнее справедливо в силу того, что подходящее $R$ мы действительно можем подобрать. Таким образом, для всех достаточно маленьких $\eps$ в любом таком цилиндре подобное неравенство выполняется. \placeholder{Wut? Что произошло?}
+  
+  Устремляем $\eps \to 0$. Неравенство \eqref{kek} обратится в равенство. (\placeholder{почему?})
+\end{proof}
+
+\subsubsection{Начальная краевая задача}
+
+Рассмотрим следующую задачу (здесь $t \in \mathbb{R}^+, x \in \Omega \subset \mathbb{R}^n$):
+\begin{equation}
+  \left\{\begin{aligned}
+    Lu &= u_t - a^2 \Delta u = f \\
+    u \eval_{\fr \Omega} &= \psi \\
+    u \eval_{t = 0} &= u_0
+  \end{aligned}\right.
+\end{equation}
+причем $f = f(x), \phi = \phi(x)$ --- не зависят от времени.
+
+Но перед этим рассмотрим частный случай, когда $f \equiv 0$ и $\psi \equiv 0$.
+
+\begin{thm}
+  $u(t, x) \to 0$ (равномерно по $x$; с экспоненциальной скоростью).
+\end{thm}
+
+\begin{proof}
+  НУО положим, что $\Omega$ включает $0$ и вложена в куб $Q$. Рассмотрим следующую функцию:
+  \begin{equation}
+    v(t, x) = Ae^{-bt} \prod_{i=1}^n \cos cx_i
+  \end{equation}
+  
+  Применим к ней оператор теплопроводности:
+  \begin{equation}
+    Lv = \pdv{v}{t} - a^2 \Delta v = -bv + a^2 c^2 nv = v(-b + a^2 c^2 n) = 0
+  \end{equation}
+  
+  Положим $\boxed{b \coloneqq a^2 c^2 n}$. Вощьмем такое $c$, что $\cos(cx_i) > 0$ для любых $x_i \in [-d, d]$. Дополнительно возьмем такое $A$, что:
+  \begin{equation}
+    A \prod_{i=1}^n \cos(cx_i) \ge \norm{u_0}_\infty
+  \end{equation}
+  
+  Введем следующие обозначения:
+  \begin{align}
+    W_+(t, x) &\coloneqq v(t, x) + u(t, x) \\
+    W_-(t, x) &\coloneqq v(t, x) - u(t, x)
+  \end{align}
+  
+  Применим к ним оператор теплопроводности. Очевидно, $LW_\pm = 0$. Посмотрим на поведение $W_\pm$ при $t = 0$. Имеем:
+  \begin{equation}
+    W_\pm \eval_{t = 0} = v \eval_{t = 0} \pm u \eval_{t = 0} = A \prod_{i=1}^n \cos(cx_i) \pm u_0(x) \ge 0
+  \end{equation}
+  
+  \placeholder{А тут я отвлекся. Какая печаль.}
+\end{proof}
+
+Теперь можем приступить к рассмотрению общего случая. \placeholder{Рассмотрим вспомогательное уравнение... Еще тут была формлировка теоремы (не одной?).}
+
+\begin{proof}
+  Пусть существуют два решения $u$ и $v$. Положим $w \coloneqq u - v$. Применим оператор:
+  \begin{equation}
+    Lw = Lu - Lv = 0
+  \end{equation}
+  
+  Посмотрим на поведение на границе:
+  \begin{equation}
+    w \eval_{\fr \Omega} = u \eval_{\fr \Omega} - v \eval_{\fr \Omega} = 0
+  \end{equation}
+  и при $t = 0$:
+  \begin{equation}
+    w \eval_{t = 0} = u_0 - v
+  \end{equation}
+  
+  Следовательно, $\abs{w(t, x)} \le Ae^{-bt}$, то есть $\abs{u(t, x) - v(x)} \le Ae^{-bt}$.
+\end{proof}

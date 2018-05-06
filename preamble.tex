@@ -1,10 +1,12 @@
 \usepackage[headsepline]{scrlayer-scrpage}
 
+\usepackage{graphicx}
 \usepackage{letltxmacro}
 \usepackage{mathtools}
 \usepackage{newclude}
 \usepackage{physics}
 \usepackage{xcolor}
+\usepackage[normalem]{ulem}
 
 % Структурные дефайны
 \newtheorem{thm}{Теорема}
@@ -49,6 +51,13 @@
 \LetLtxMacro{\temp}{\phi}
 \LetLtxMacro{\phi}{\varphi}
 \LetLtxMacro{\varphi}{\temp}
+
+% Русские «больше» и «меньше»
+\renewcommand{\le}{\leqslant}
+\renewcommand{\ge}{\geqslant}
+
+% Нормальные < и >
+\DeclarePairedDelimiter{\dprod}{\langle}{\rangle}
 
 % shorthand for epsilon
 \newcommand{\eps}{\epsilon}

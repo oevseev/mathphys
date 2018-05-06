@@ -1,0 +1,263 @@
+\dateline{8 апреля 2018 г.}
+
+\subsection*{Резюме}
+
+Был продемонстрирован <<зоопарк>> простых дифуров в частных производных. По поводу каждого дифура были произнесены <<какие-то физические слова, как-то соотносящие дифур с физикой>>. Для самых частых задач выписаны формулы в частном виде. Были сформулированы теоремы вида <<при каких условиях решение существует и единственно>>. В первой части говорили в основном о классических решениях. Были введены обобщенные производные.
+
+\clearpage
+
+\section{Обобщенные решения}
+
+Во второй части речь пойдет об обобщенных решениях. Будем решать:
+%
+\begin{equation}
+\left\{\begin{aligned}
+-\Delta u &= f\ \text{в}\ \Omega \subset \mathbb{R}^n,\ \text{\underline{огр.}} \\
+u \eval_{\partial \Omega} &= 0
+\end{aligned}\right.
+\end{equation}
+
+\begin{quote}
+  \placeholder{Кто хочет, может записать, а потом зачеркнуть. Это путь, который ведет в никуда. Заранее предупреждаю, чтобы не жаловались.}
+\end{quote}
+
+Рассмотрим функционал:
+\begin{equation}
+  F(u) \coloneqq \frac{1}{2} \int_\Omega \abs{\nabla u}^2 \dd x - \int_\Omega f u \dd x \label{func}
+\end{equation}
+
+Для каких функций определен этот функционал? Хочется, чтобы функция $u \in C^1(\Omega)$ (и, по возможности, чтобы градиент был ограничен --- то есть $u \in C^1(\bar{\Omega})$). Дополнительно пусть $u \eval_{\partial \Omega} = 0$.
+
+\begin{quote}
+  Задача осмысленна и минимум почему-то должен быть.
+\end{quote}
+
+Возьмем $h \in C^1(\bar{\Omega})$, $h \eval_{\partial \Omega} = 0$. Будем варьировать:
+\begin{equation}
+  F(u + \eps h) \ge F(u)
+\end{equation}
+Данное уравнение равносильно следующей системе:
+\begin{equation}
+  \left\{\begin{aligned}
+    \frac{1}{\eps} (F(u + \eps h) - F(u)) &\ge 0 && \eps > 0 \\
+    \frac{1}{\eps} (F(u + \eps h) - F(u)) &\le 0 && \eps < 0
+  \end{aligned}\right.
+\end{equation}
+
+Рассмотрим предел:
+\begin{equation}
+  \begin{aligned}
+    &\phantom{{}={}} \lim_{\eps \to 0} \frac{F(U + \eps h) - F(u)}{\eps} \\
+    &= \lim_{\eps \to 0} \left(\frac{1}{2} \int_\Omega \abs{\nabla u + \eps \nabla h}^2 - \int_\Omega f (u + \eps h) - \frac{1}{2} \int_\Omega \abs{\nabla u}^2 + \int_\Omega fu \right) \\
+    &= \lim_{\eps \to 0} \left(\int_\Omega \nabla u \cdot \nabla h + \frac{1}{2} \eps \int_\Omega \abs{\nabla h}^2 - \int_\Omega fh \right) \\
+    &= \int_\Omega \nabla u \cdot \nabla h - \int_\Omega fh
+  \end{aligned}
+\end{equation}
+
+Избавимся от производных по $h$. Считаем, что $u \in C^2(\bar{\Omega})$ и интегрируем по частям. Приходим к:
+\begin{equation}
+  \int_\Omega (-\Delta u - f) h = 0
+\end{equation}
+
+Что равносильно:
+\begin{equation}
+  \left\{\begin{aligned}
+    -\Delta u = f \\
+    u \eval_{\partial \Omega} = 0
+  \end{aligned}\right.
+\end{equation}
+
+Если бы удалось доказать, что минимум существует и что интегрирование по частям оправдано, то мы могли бы заключить, что минимум является решением. Получаем оптимизационную задачу (метод Рисса).
+\bigskip
+
+\placeholder{Тут было лирическое отступление про метод Тонелли, полунепрерывность снизу и минимизирующие последовательности.}
+
+\begin{thm}(Тонелли)
+  Если во множестве $X$ возможно придумать такую топологию, что какая-то минимизирующая последовательность $f(x_1), f(x_2), \ldots$ в ней компактна и $f$ --- полунепрерывна снизу, тогда существует $x_0 \in X$ такая, что $f(x_0) = \inf_X f$.
+\end{thm}
+
+\begin{proof}
+  Пусть такая топология нашлась. Пусть есть сходящаяся подпоследовательность $x_{k_l}$. Вдоль последовательности $f$ убывает $\Rightarrow$ вдоль подпоследовательности тоже. Пусть $x_{k_l} \to x_0$. Но $f(x_0) \le \lim_{k \to \infty} f(x_k) \le \lim_{l \to \infty} f(x_{k_l}) = \inf_X f$, откуда $f(x_0) = \inf_X f$.
+\end{proof}
+
+Пусть у нас есть минимизирующая последовательность функций $\qty{u_k}$. Рассмотрим, как ведет на ней себя \eqref{func}:
+\begin{equation}
+  F(u_k) = \frac{1}{2} \int_\Omega \abs{\nabla u_k}^2 - \int_\Omega f u_k
+\end{equation}
+и $F(u_k) \to \inf F$. \placeholder{(so what?)}
+
+Но нас нет никакой гарантии, что минимизирующая последовательность будет к чему-то сходиться. Даже если это и так, то не факт, что предел будет в $C^1$.
+
+Давайте рассмотрим одномерную ситуацию: $\Omega = (-1, 1) \subset \mathbb{R}$ и $f \equiv 0$. Все, что мы можем сказать:
+\begin{equation}
+  \int_{-1}^1 \abs{u'_k}^2 \le C
+\end{equation}
+%
+--- это мало что нам дает. \placeholder{(а что именно?)}
+
+Любопытная идея, но что делать дальше --- непонятно.
+
+\bigskip
+
+\begin{defn}
+  Говорят, что $u \in H_0^1 (\Omega)$, если $u \in L^2(\Omega)$ и найдется такая последовательность $\qty{v_k}$, $v_k \in C_0^\infty(\Omega)$ такая, что $v_k \to u$ в $L^2(\Omega)$ и $\pdv{v_k}{x_i} \to u_i$ в $L^2(\Omega)$ для всех $i = 1, \ldots, n$.
+\end{defn}
+
+Рассмотрим $\langle \phi, \pdv{v_k}{x_i} \rangle$ --- обобщенную производную. В силу того, что $\phi \int D(\Omega) = C_1^\infty(\Omega)$, можем расписать:
+\begin{equation}
+  \langle \phi, \pdv{v_k}{x_i} \rangle = -\langle \pdv{\phi}{x_i}, v_k \rangle = - \int_\Omega \pdv{\phi}{x_i} v_k \to - \int_\Omega \pdv{\phi}{x_i} u = - \langle \pdv{\phi}{x_i}, u \rangle = - \langle \phi, \pdv{u}{x_i} \rangle
+\end{equation}
+
+С другой стороны:
+\begin{equation}
+  \langle \phi, \pdv{u_k}{x_i} \rangle \to \int_\Omega \phi u_i = \langle \phi, u_i \rangle
+\end{equation}
+
+Отсюда заключаем, что $u_i = \pdv{u}{x_i}$.
+
+\placeholder{Тут на самом деле какая-то магия с функционалами. Нужно уточнить.}
+
+В частности, оказывается, что если $u \int H_0^1(\Omega)$, то из этого следует $u \int L^2(\Omega)$ и все $\pdv{u}{x_i} \in L^2(\Omega)$. Но не наоборот!
+
+Иногда полезно ввести обозначение $H^1(\Omega)$ (<<без нолика>>): это такие $u \in L^2(\Omega)$, что все частные производные из $L^2(\Omega)$. Ясно, что $H_0^1(\Omega) \subset H^1(\Omega)$.
+
+На этих множествах хочется ввести какую-то структуру. Сделаем из $H^1(\Omega)$ нормированное пространство. Введем норму:
+\begin{equation}
+  \norm{u}_{H_1} = \sqrt{\norm{u}_2^2 + \sum_{i=1}^n \norm{\pdv{u}{x_i}}_2^2} = \sqrt{\norm{u}_2^2 + \norm{\nabla u}_2^2}
+\end{equation}
+
+Но это не норма! В частности, она бывает равна нулю на ненулевой функции (например, на функции вида <<ноль везде, кроме нуля>>). Однако, если мы профакторизуем $H^1$ по отношению равенства почти всюду, то она станет нормой. Смысл такой нормы --- сходимость по норме $H_1$ означает сходимость в $L^2$ самих функций и первых обобщенных производных.
+
+\placeholder{Что-то}
+
+Еще норма $H^1$ определяется скалярным произведением:
+\begin{equation}
+  (u, v)_{H_1} \coloneqq (u, v)_{L_2} + \sum_{i=1}^n \qty(\pdv{u}{x_i}, \pdv{v}{x_i})_{L_2}
+\end{equation}
+\bigskip
+
+Рассмотрим один простой частный случай. Пусть $\Omega = (a, b) \subset \mathbb{R}$. Сформулируем теорему:
+\begin{thm}(теорема вложения Соболева)
+  $H_0^1(\Omega) \subset C([a, b])$.
+\end{thm}
+
+\begin{proof}
+  Пусть $u \in C^1([a, b])$. По теореме о среднем существует $\xi$ такое, что $u(\xi) = \int_a^b u(s) \dd s$. Имеем:
+  \begin{equation}
+    \abs{u(x)} = \abs{u(\xi) + \int_\xi^x u'(s) \dd s} \le \abs{\frac{1}{b-a}} \abs{\int_a^b u(s) \dd s} + \abs{\int_a^b u'(s) \dd s}
+  \end{equation} 
+  
+  Применим неравенство Гёльдера \placeholder{(в этой выкладке я очень не уверен)}:
+  \begin{equation}
+  \begin{aligned}
+    \abs{u(x)} &\le \frac{1}{b-a} \int_a^b \abs{u(s) \dd s} + \int_a^b \abs{u'(s) \dd s} \\
+    &\le \frac{1}{\sqrt{b - a}} \norm{u} \sqrt{b - a} + \norm{u'} \sqrt{b-a} \\
+    &\le C(\abs{b-a}) \sqrt{\norm{u}_2^2 + \norm{u'}_2^2}
+  \end{aligned}
+  \end{equation}
+  
+  Отсюда $\abs{u(x)} \le C \norm{u}_{H^1}$, то есть $\norm{u}_\infty \le C \norm{u}_{H^1}$.
+  
+  Теперь рассмотрим $u \in H_0^1([a, b])$. Рассмотрим последовательность $v_k \in C_0^\infty(a, b)$ такую, что $v_k \to u$ в $H^1$. Тогда:
+  \begin{equation}
+    \norm{v_k - v_m}_\infty \le C\norm{v_k - v_m}_{H^1}
+  \end{equation}
+  
+  Это позволяет нам заключить, что $v_k \rightrightarrows v \in C([a, b])$, а $v = u$ в $L^2(a, b)$.
+\end{proof}
+
+\placeholder{Тут было какое-то <<любопытное замечание>>}
+
+\begin{cor}
+  Если $u \in H_0^1(a, b)$, то существует $u'_{кл}(x)$ для почти всех $x \in (a, b)$ и $u'_{кл}(x) = u'_{обобщ}(x)$ почти всюду на $(a, b)$. При этом $u$ --- обобщенно непрерывная.
+\end{cor}
+
+\begin{proof}
+  Для любого $w \in C_0^\infty(a, b)$ справедливо $w(x) = \int_a^x w'(s) \dd s$. Пусть $u \in H_0^1(a, b)$. Рассмотрим последовательность $v_k \in C_0^\infty (a, b)$, сходящуюся к $u$ в смысле $H_1$. Имеем:
+  \begin{equation}
+    v_k(x) = \int_a^x v_k(s) \dd s \to \int_a^x u'_{обобщ}(s) \dd s
+  \end{equation}
+  
+  С другой стороны, $v_k(x) \to v(x)$. Получили:
+  \begin{equation}
+    v(x) = \int_a^x u'_{обобщ}(s) \dd s
+  \end{equation}
+  %
+  \placeholder{ЧТО ПРОИСХОДИТ}
+\end{proof}
+
+Все это верно исключительно для одномерного случая. В многомерных случаях, вообще говоря, члены $H_0^1$ не обязаны иметь даже непрерывных представителей.
+\bigskip
+
+Верно ли, что пространство $H_0^1$ полное? Да!
+\begin{thm}
+  $H^1$ и $H_0^1$ --- гильбертовы пространства.
+\end{thm}
+
+\begin{proof}
+  Возьмем произвольную фундаментальную последовательность. Имеем $\norm{u_k - u_m}_{H^1} \to \infty$ при $k, m \to 0$. В частности, $\norm{u_k - u_m}_{L^2} \to 0$, то есть $u_k \to u$ в смысле $L^2$. То же самое справедливо для производных: $\pdv{u_k}{x_i} \to u_i$ в смысле $L^2$.
+\end{proof}
+
+\begin{thm}
+А еще они сепарабельны!
+\end{thm}
+
+\begin{proof}
+Рассмотрим оператор $L$: $u \in H'(\Omega) \mapsto (u, \pdv{u}{x_1}, \ldots, \pdv{u}{x_n}) = Lu$. Посчитаем норму $\norm{Lu}_2$. Это ни что иное, как $\norm{u}_{H^1}$. То есть, $L$ на самом деле является изометрией между $H^1$ и образом этого оператора. Следовательно, образ замкнут. $H^1$ сепарабельно в силу того, что оно изометрично замкнутому подпространству сепарабельного пространства.
+\end{proof}
+
+\bigskip
+\hrule
+\bigskip
+
+Пусть дан функционал:
+\begin{equation}
+  F(u) \coloneqq \frac{1}{2} \int_\Omega \abs{\nabla u}^2 \dd x - \int_\Omega f u \dd x \label{func2}
+\end{equation}
+%
+где $u \in H_0^1(\Omega)$, $\Omega \subset \mathbb{R}^n$ ограничено и открыто. Пусть $f \in L^2(\Omega)$.
+
+Пусть $u \in H_0^1(\Omega)$ --- $\arg \min$ этого функционала. Тогда для любой допустимой вариации:
+\begin{equation}
+  \lim_{\eps \to 0} \frac{F(u + \eps h) - F(u)}{\eps} = 0
+\end{equation}
+
+Этот предел равен:
+\begin{equation}
+  \lim_{\eps \to 0} = \int_\Omega \nabla u \cdot \nabla h \dd x - \int_\Omega f h \dd x
+\end{equation}
+%
+(на самом деле, это все то, что было сказано ранее в <<лирическом отступлении>> с той лишь разницей, что градиенты обобщенные).
+
+\placeholder{что-то}
+
+У нас имеется соотношение \placeholder{(откуда оно взялось?)}:
+
+\begin{align}
+  -\sum_{i = 1}^n \dprod*{h, \pdv{u}{x_i}{x_i}} - \dprod{h, f} &= 0 \\
+  -\dprod*{h, \Delta u} - \dprod{h, f} &= 0 \\
+  \dprod*{h, -\Delta u - f} &= 0 \\
+  \left\{\begin{aligned}
+    -\Delta u &= f \\
+    u &\in H_0^1(\Omega)
+  \end{aligned}\right.
+\end{align}
+
+То есть, минимайзер является решением уравнения Пуассона. Но где краевое условие? <<Зашифровано в нолике $H_0^1$>>. Теперь в поиске минимайзера появился смысл, потому что он является обобщенным решением уравнения Пуассона.
+
+\paragraph{Неравенство Фридрихса}
+
+\begin{thm}
+  \begin{equation}
+  \left\{\begin{aligned}
+    \forall u &\in H_0^1(\Omega) && \norm{u}_2 \le C \norm{\nabla u}_2 \\
+    \Omega \subset \mathbb{R}^n &\text{--- ограничено, открыто}
+  \end{aligned}\right.
+  \end{equation}
+\end{thm}
+
+\begin{proof}
+  \placeholder{Чекнуть у ребят}
+\end{proof}
+
+Вернемся к функционалу \eqref{func2}. Рассмотрим минимизирующую последовательность $u_k$, устремляющую $F$ к $\inf F$ в смысле $H_0^1(\Omega)$. Хотим доказать, что $\norm{u_k}_{H^1} \le C(f, \Omega)$. \placeholder{Вторым шагом будет выбрать подпоследовательность, слабо сходящуюся к $u$}

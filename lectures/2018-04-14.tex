@@ -1,0 +1,128 @@
+\dateline{14 апреля 2018 г.}
+
+Рассмотрим функционал:
+\begin{equation}
+  F(u) \coloneqq \frac{1}{2} \int_\Omega \abs{\nabla u}^2 \dd x - \int_\Omega fu \dd x
+\end{equation}
+Здесь $u \in H_0^1(\Omega)$, где $\Omega \subset \mathbb{R}^n$ открытое и \underline{ограниченное}\footnote{нужно для того, чтобы применить неравенство Фридрихса}, $f \in L^2(\Omega)$.
+
+\begin{thm}
+  Существует такое $u_0 \in H_0^1(\Omega)$, что $F(u_0) = \inf_{H_0^1(\Omega)} F$.
+\end{thm}
+
+Ранее был рассмотрен другой функционал на пространстве гладких функций, но доказать существование минимума не удавалось. В случае соболевских пространств это делается легко:
+
+\begin{proof}
+  Рассмотрим минимизирующую последовательность $u_k \in H_0^1(\Omega)$ и $F(u_k)$ убывает к $\inf_{H_0^1(\Omega)} F$.
+  
+  Можем расписать $F(u_k)$:
+  \begin{equation}
+    F(u_k) = \frac{1}{2} \norm{\nabla u_k}^2_2 - \int_\Omega f u_k \dd x \label{20180414-kek}
+  \end{equation}
+  
+  Интеграл поделим и умножим на $\eps$, а затем оценим сверху:
+  \begin{equation}
+    \int_\Omega f u_k \dd x = \frac{1}{\eps} \int_\Omega \eps u_k \dd x \le \int_\Omega \frac{1}{2} \qty(\qty(\frac{f}{e})^2 + \qty(\eps u_k)^2) \dd x
+  \end{equation}
+  
+  Это позволяет нам в свою очередь оценить \eqref{20180414-kek}:
+  \begin{equation}
+    F(u_k) \ge \frac{1}{2} \norm{\nabla u_k}^2_2 - \frac{1}{2} \eps^2 \int_\Omega f^2 - \eps^2 \norm{u_k}_2^2 \label{20180414-kek2}
+  \end{equation}
+  
+  В то же время, по неравенству Фридрихса:
+  \begin{equation}
+    \norm{u_k}^2_2 \le C(\Omega) \norm{\nabla u_k}^2_2
+  \end{equation}
+  
+  Что позволяет на продолжить оценку \eqref{20180414-kek2}:
+  \begin{equation}
+    \text{\placeholder{глянуть выкладку}}
+  \end{equation}
+  
+  Если мы подставим $0$ в наш функционал, получим следующее неравенство:
+  \begin{equation}
+    \frac{1}{2}(1 - \eps^2 C(\Omega)) \norm{\nabla u_k}_2^2 \le \frac{1}{2 \eps^2} \norm{f}_2^2
+  \end{equation}
+  и это для любого $\eps$. Следовательно, если мы подставим хорошее \placeholder{(какое?)} $\eps$, можем получить следующую оценку, сохранив неравенство:
+  \begin{equation}
+    \norm{\nabla u_k}^2_2 \le C(\norm{F}_2, \Omega)
+  \end{equation}
+  
+  В свою очередь,
+  \begin{equation}
+    \norm{u_k}^2_2 \le C(\Omega) \norm{\nabla u_k}_2^2 \le C
+  \end{equation}
+  
+  Что мы получили? Если $u_k$ --- минимизирующая, то вся она находится в каком-то шаре пространства $H_0^1$.
+  
+  Перейдем к следующему шагу. Используем факт, что $H_0^1$ --- сепарабельное гильбертово пространство, а конкретно --- свойство, что из любой последовательности в шаре этого пространства можно выбрать слабо сходящуюся подпоследовательность.
+  
+  Пусть $u_{k_m} \to u \in H_0^1(\Omega)$ слабо. Рассмотрим вложение $i \colon H_0^1(\Omega) \to L^2(\Omega)$. Проверим ограниченность оператора вложения. \placeholder{Проверили.} Из этого следует, что $u_{k_m} \to u$ слабо в смысле $L^2(\Omega)$.
+  
+  Мало того, давайте рассмотрим дополнительно следующие операторы обобщенного дифференцирования (их $n$ штук --- по размерности пространства):
+  \begin{equation}
+    \pdv{x_i} \coloneqq u \in H_0^1(\Omega) \mapsto \pdv{u}{x_i} \in L^2(\Omega)
+  \end{equation}
+  Они тоже ограничены, следовательно последовательность $\pdv{u_{k_m}}{x_i} \to \pdv{u}{x_i}$ в смысле $L^2(\Omega)$.
+  
+  Теперь устремим $m \to \infty$. Рассмотрим значения функционала на функциях $u_{k_m}$:
+  \begin{equation}
+    F(u_{k_m}) = \frac{1}{2} \int_\Omega \abs{\nabla u_{k_m}}^2 - \int_{\Omega} f u_{k_m}
+  \end{equation}
+  
+  Посмотрим на второй интеграл. $u_{k_m} \to u$ в смысле $L^2(\Omega)$, следовательно интеграл, будучи линейным непрерывным функционалом на $L^2$, ведет себя следующим образом:
+  \begin{equation}
+    \int_\Omega f u_{k_m} \dd x \to \int_{\Omega} fu \dd x
+  \end{equation}
+  
+  Чтобы убить первый интеграл, оценим $(\nabla u_k - \nabla u)^2$:
+  \begin{equation}
+    0 \le (\nabla u_k - \nabla u)^2 = \abs{\nabla u_k}^2 + \abs{\nabla u}^2 - 2 \nabla u_k \cdot \nabla u
+  \end{equation}
+  
+  То есть:
+  \begin{equation}
+    \abs{\nabla u_k}^2 - \abs{\nabla u}^2 \ge 2 \nabla u \cdot (\nabla u_k - \nabla u)
+  \end{equation}
+  
+  Поделим обе части неравенства на $2$ и проинтегрируем по $\Omega$, а также распишем скалярное произведение:
+  \begin{equation}
+    \frac{1}{2} \int_\Omega \abs{\nabla u_k}^2 - \frac{1}{2} \int_\Omega \abs{\nabla u}^2 \ge \int_\Omega \nabla u \cdot (\nabla u_{k_m} - \nabla u)
+  \end{equation}
+  
+  Правую часть можем приравнять:
+  \begin{equation}
+    \text{\placeholder{выкладка}}
+  \end{equation}
+  
+  В силу доказанного ранее можем перейти к пределу. Получим:
+  \begin{equation}
+    \lim \inf \frac{1}{2} \int_\Omega \abs{\nabla u_{k_m}}^2 - \int_{\Omega} \abs{\nabla u}^2 \ge 0
+  \end{equation}
+  
+  Можем переформулировать это следующим образом.
+  \begin{equation}
+  \text{\placeholder{выкладка}}
+  \end{equation}
+  
+  иначе говоря, мы докзали, что наш функционал полунепрерывен снизу.
+  
+  Завершим наше доказательство. Заметим, что $\lim_m \inf F(u_{k_m}) \to \inf_{H_0^1}(\Omega) F \ge F(u)$. Но $F(u)$ само из $H_0^1$, следовательно, получаем равенство.
+\end{proof}
+
+Какая связь между полученным результатом и уравнением Пуассона? Рассмотрим $F(u) = \inf_{H_0^1(\Omega)} \inf F$, где $u \in H_0^1(\Omega)$, и посмотрим, какому уравнению наше $u$ удовлетворяет.
+
+Возьмем произвольную вариацию $\phi \in H_0^1(\Omega)$. Гарантированно имеем $F(u) \le F(u + \eps \phi)$.
+
+\bigskip
+\hrule
+\smallskip
+\placeholder{Пропущена часть лекции}
+\hrule
+\smallskip
+\bigskip
+
+Второе доказательство --- ни что иное, как приложение леммы к случаю конкретных пространств, а сама лемма является частным случаем теоремы Рисса. Доказательство с функционалом же конструктивно и позволяет нам понять, как выглядит решение.
+
+На основе первого доказательства основан численный метод --- метод Ритца.

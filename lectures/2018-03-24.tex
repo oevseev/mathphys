@@ -1,0 +1,111 @@
+\dateline{24 марта 2018 г.}
+
+\subsection{Обобщенные функции}
+
+\placeholder{Опять пропущена первая пара. Да что ж такое...}
+
+\bigskip
+
+\placeholder{Напоминание: как интегрировать по частям в многомерном случае. Первая формула Грина.}
+
+\paragraph{Второй пример}
+
+Поменяем порядок:
+
+\begin{equation}
+  \begin{aligned}
+    \int_\Omega v \cdot \Delta u \dd x = -\int_\Omega \Delta u \cdot \Delta v \dd x + \int_\Omega {\partial \Omega} v(x) \pdv{u}{n} (x) \dd \sigma(x)
+  \end{aligned}
+\end{equation}
+
+Вычитая первое из второго, получаем
+
+\begin{equation}
+  \text{\placeholder{Еще одна выкладка}}
+\end{equation}
+
+\begin{cor*}
+  Пусть $-\Delta u = f$ в $\Omega$, где $\Omega$ --- ограниченное множество с гладкой границей, $f$ --- непрерывная на $\bar{\Omega}$ функция, $u$ --- классическое решение ($u \in C^2(\bar{\Omega})$). Тогда:
+  \begin{equation}
+    \int_\Omega f \dd x = -\int_{\partial \Omega} \pdv{u}{n} \dd \sigma
+  \end{equation}
+  (<<количество тепла, которое выделилось, равно количеству тепла, ушедшего через границу>>)
+\end{cor*}
+
+\begin{cor*}
+  \begin{equation}
+    \left\{\begin{aligned}
+      -\Delta u &= f\ \text{в $\Omega$, где $\Omega$ --- огр.} \\
+      \pdv{u}{n} &= 0\ \text{на $\Omega$}
+    \end{aligned}\right.
+  \end{equation} --- задача Неймана.
+  Классическое решение существует, если $\int_\Omega f \dd x = 0$.
+\end{cor*}
+
+\begin{thm*}
+  Пусть $\Omega$ совпадает с $\mathbb{R}^n$, где $n \ge 3$. Тогда решением $-\Delta u = f$ в $D'(\Omega)$ является
+  \begin{equation}
+    u(x) = \frac{C_n}{\abs{x}^{n-2}}
+  \end{equation}
+\end{thm*}
+
+\begin{proof}
+  Рассмотрим $\phi \in D(\mathbb{R}^n)$:
+  \begin{equation}
+    \begin{aligned}
+      \langle \phi, -\Delta u \rangle &= - \sum_{i=1}^n \left\langle \pdv{\phi}{x_i}{x_i}, u \right\rangle = - \langle \Delta \phi, u \rangle = \\
+      &= -\int_{\mathbb{R}^n} \Delta \phi(x) u(x) \dd x = - \lim_{\eps \to 0} \int_{B_\eps^C(0)} \Delta \phi(x) u(x) \dd x \\
+      &= -\lim_{\eps \to 0} \left(\int_{B_\eps^C(0)} \Delta u(x) \phi(x) \dd x + \int_{\partial B_\eps(0)} u(x) \pdv{\phi}{n} (x) \dd \sigma(x) \right)
+    \end{aligned}
+  \end{equation}
+  
+  \placeholder{Упражнение: проверить, что вне нуля классический лапласиан равен нулю.}
+  
+  \placeholder{Посмотреть выкладки у ребят...}
+\end{proof}
+
+Данная функция называется фундаментальным решением уравнения Лапласа. Классический же лапласиан всюду равен нулю.
+
+\paragraph{Частный случай}
+
+$n = 3$: $\omega_3 = \frac{4}{3} \pi$, $u(x) = \frac{1}{3 \cdot \frac{4}{3} \pi \cdot \abs{x}} = \frac{1}{4 \pi \abs{x}}$.
+
+\begin{quote}
+  Вообще иногда физики часто вместо $\delta$ пишут $\delta(x)$ <<как если бы это была функция>>, а вместо угловых скобок <<нахальным образом>> пишут интегралы, что с точки зрения математики не совсем корректно.
+\end{quote}
+
+\placeholder{Какое-то лирическое отступление про свертку}
+
+Докажем один простой случай (теорема далеко не самая общая)
+\begin{thm}
+  Пусть $f \in C^2_0(\mathbb{R}^n)$. Тогда
+  \begin{equation}
+    u(x) = \int_{\mathbb{R}^n} \Phi(x-y) f(y) \dd y
+  \end{equation}
+  является \emph{классическим решением} уравнения Пуассона $-\Delta u = f$ в $\mathbb{R}^n$.
+\end{thm}
+
+\begin{proof}
+  Во-первых, свертку можно перекинуть:
+  \begin{equation}
+    u(x) = \int_{\mathbb{R}^n} \Phi(y) f(x - y) \dd y
+  \end{equation}
+  
+  Давайте считать соответственно $-\Delta u$:
+  \begin{equation}
+    -\Delta u = \int_{\mathbb{R}^n} \Phi(y) (- \Delta_x) f(x - y) \dd y
+  \end{equation}
+  Хотим доказать, что это равно $f$. Будем это делать в обобщенных производных (поскольку классические производные есть и непрерывны, они совпадут с обобщенными):
+  \begin{equation}
+    \begin{aligned}
+      \langle \phi, - \Delta u \rangle &= -\int_{\mathbb{R}^n} \Phi(y) \dd y \int_{\mathbb{R}^n} \phi(x) \Delta_x f(x-y) \dd x \\
+      &= -\int_{\mathbb{R}^n} \Phi(y) \dd y \int_{\mathbb{R}^n} \Delta \phi(x) f(x-y) \dd x \\
+      &= -\int_{\mathbb{R}^n} \Phi(y) \dd y \int_{\mathbb{R}^n} \Delta \phi(y + z) f (z) \dd z \\
+      &= -\int_{\mathbb{R}^n} -f(z) \dd z \int_{\mathbb{R}^n} (-\Delta \phi(y + z)) \Phi(y) \dd y && \text{--- теорема Фубини} \\
+      &= -\int_{\mathbb{R}^n} -f(z) \dd z \langle \phi(\bullet + z), \delta \rangle && \text{\placeholder{а вот тут я не уверен}} \\
+      &= \int_{\mathbb{R}^n} f(z) \phi(z) \dd z
+    \end{aligned}
+  \end{equation}
+  
+  Таким образом, $\langle \phi, -\Delta u\rangle = \langle \phi, f \rangle$, откуда $-\Delta u = f$.
+\end{proof}
